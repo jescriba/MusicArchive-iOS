@@ -10,4 +10,13 @@ import Foundation
 import UIKit
 
 class SongsViewController: UIViewController {
+    var songs = [Song]()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        MusicAPIClient.fetchSongs(success: { songs in
+            self.songs = songs
+        })
+    }
 }

@@ -7,3 +7,14 @@
 //
 
 import Foundation
+import UIKit
+
+class ArtistsTableViewCell: UITableViewCell {
+    var artist: Artist? {
+        didSet {
+            guard let val = artist else { return }
+            //val.name
+        }
+    }
+    
+}
