@@ -65,13 +65,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recorded Between" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ba0-Be-Njr">
-                                <rect key="frame" x="20" y="257" width="153" height="21.5"/>
+                                <rect key="frame" x="20" y="266.5" width="153" height="21.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Artist Name" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6Sw-7o-su3">
-                                <rect key="frame" x="137.5" y="119" width="100" height="30"/>
+                                <rect key="frame" x="137.5" y="122.5" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="iZ3-YG-E2H"/>
                                 </constraints>
@@ -80,7 +80,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Song Name" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rlu-OW-Qvb">
-                                <rect key="frame" x="137.5" y="187" width="100" height="30"/>
+                                <rect key="frame" x="137.5" y="196.5" width="100" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="ag1-Eb-7Cz"/>
                                 </constraints>
@@ -89,7 +89,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4t2-QW-rW4">
-                                <rect key="frame" x="0.0" y="289" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="298.5" width="375" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="8gK-OO-5yj"/>
                                 </constraints>
@@ -98,7 +98,7 @@
                                 </date>
                             </datePicker>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KfV-V2-mfe">
-                                <rect key="frame" x="0.0" y="379" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="388.5" width="375" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="tGr-l4-sgn"/>
                                 </constraints>
@@ -129,14 +129,14 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KYP-MI-WVx">
-                                <rect key="frame" x="20" y="125" width="37.5" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <rect key="frame" x="20" y="125" width="46.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crb-cR-Ct8">
-                                <rect key="frame" x="20" y="193" width="35.5" height="18"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <rect key="frame" x="20" y="199" width="45.5" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -339,9 +339,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="friends" width="30" height="30"/>
+        <image name="friends" width="41" height="31"/>
         <image name="home" width="33" height="33"/>
-        <image name="note" width="23" height="23"/>
-        <image name="search" width="40" height="40"/>
+        <image name="note" width="21" height="30"/>
+        <image name="search" width="46" height="46"/>
     </resources>
 </document>
