@@ -17,11 +17,13 @@ class ArtistsViewController: UIViewController {
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView()
+        tableView.rowHeight = 100
         tableView.dataSource = self
         tableView.delegate = self
 
         MusicAPIClient.fetchArtists(success: { artists in
-
+            self.artists = artists
+            self.tableView.reloadData()
         })
     }
 

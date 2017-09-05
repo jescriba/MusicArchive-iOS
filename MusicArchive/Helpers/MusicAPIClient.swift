@@ -11,28 +11,78 @@ import Alamofire
 
 class MusicAPIClient {
 
-    static func fetchArtists(success: ([Artist]) -> (),
-                             failure: ((Error?) -> ())? = nil) {
+    static func fetchArtists(success: @escaping ([Artist]) -> (),
+                             failure: ((Error) -> ())? = nil) {
         Alamofire.request(Constants.artistsEndPoint, headers: ["Accept":"application/json"])
             .validate(contentType: ["application/json"])
             .responseJSON { response in
             if let json = response.result.value {
-                
-//                Artist()
+                if let results = json as? [[String:Any]] {
+                    var artists = [Artist]()
+                    for result in results {
+                        artists.append(Artist(result))
+                    }
+                    success(artists)
+                }
             }
 
             if let error = response.result.error {
-                // TODO
+                failure?(error)
             }
         }
     }
 
-    static func fetchSongs(artistName: String? = nil,
+    static func fetchSongs(artistId: Int,
+                           success: @escaping ([Song]) -> (),
+                           failure: ((Error) -> ())? = nil) {
+        let endPoint = "\(Constants.artistsEndPoint)/\(artistId)/songs"
+        Alamofire.request(endPoint, headers: ["Accept":"application/json"])
+                 .validate(contentType: ["application/json"])
+                 .responseJSON { response in
+                    if let json = response.result.value {
+                        if let results = json as? [[String:Any]] {
+                            var songs = [Song]()
+                            for result in results {
+                                songs.append(Song(result))
+                            }
+                            success(songs)
+                        }
+                    }
+
+                    if let error = response.result.error {
+                        failure?(error)
+                    }
+        }
+    }
+
+    static func fetchSongs(success: @escaping ([Song]) -> (),
+                           failure: ((Error) -> ())? = nil) {
+        Alamofire.request(Constants.songsEndPoint, headers: ["Accept":"application/json"])
+            .validate(contentType: ["application/json"])
+            .responseJSON { response in
+                if let json = response.result.value {
+                    if let results = json as? [[String:Any]] {
+                        var songs = [Song]()
+                        for result in results {
+                            songs.append(Song(result))
+                        }
+                        success(songs)
+                    }
+                }
+
+                if let error = response.result.error {
+                    failure?(error)
+                }
+        }
+    }
+
+    static func searchSongs(artistName: String? = nil,
                            startDate: Date? = nil,
                            endDate: Date? = nil,
-                           success: ([Song]) -> (),
-                           failure: ((Error?) -> ())? = nil) {
-        //eturn [Artist]()
+                           success: @escaping ([Song]) -> (),
+                           failure: ((Error) -> ())? = nil) {
+        var searchEndPoint = Constants.songsEndPoint
+
         if let startDate = startDate {
             // TODO
         }
@@ -45,17 +95,23 @@ class MusicAPIClient {
             // TODO
         }
 
-        Alamofire.request("").responseJSON { response in
-            if let json = response.result.value {
-                // TODO
-            }
+        Alamofire.request(searchEndPoint, headers: ["Accept":"application/json"])
+            .validate(contentType: ["application/json"])
+            .responseJSON { response in
+                if let json = response.result.value {
+                    if let results = json as? [[String:Any]] {
+                        var songs = [Song]()
+                        for result in results {
+                            songs.append(Song(result))
+                        }
+                        success(songs)
+                    }
+                }
 
-            if let error = response.result.error {
-                // TODO
-            }
+                if let error = response.result.error {
+                    failure?(error)
+                }
         }
-
-        
     }
 
 }

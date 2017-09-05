@@ -20,6 +20,9 @@ class SearchViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    @IBAction func search(_ sender: Any) {
+        // TODO Search button pressed - navigate to Songs tab configuration with filtered songs to match search parameters
+    }
 
 }
 

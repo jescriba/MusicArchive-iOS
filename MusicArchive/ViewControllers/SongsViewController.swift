@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 class SongsViewController: UIViewController {
+    @IBOutlet weak var songsTablePlayerView: SongsTablePlayerView!
     var songs = [Song]()
 
     override func viewDidLoad() {
@@ -17,6 +18,7 @@ class SongsViewController: UIViewController {
 
         MusicAPIClient.fetchSongs(success: { songs in
             self.songs = songs
+            self.songsTablePlayerView.songs = self.songs
         })
     }
 }

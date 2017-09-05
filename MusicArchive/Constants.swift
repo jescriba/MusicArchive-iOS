@@ -9,7 +9,7 @@
 import Foundation
 
 class Constants {
-    static let baseEndPoint = "http://jfeliz.com"
+    static let baseEndPoint = "http://www.jfeliz.com"
     static let artistsEndPoint = "\(Constants.baseEndPoint)/artists"
     static let songsEndPoint = "\(Constants.baseEndPoint)/songs"
 }

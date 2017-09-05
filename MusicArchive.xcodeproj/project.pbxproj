@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		420FDA0A1F5C69C300869ECF /* SongsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420FDA091F5C69C300869ECF /* SongsTableView.swift */; };
 		420FDA0C1F5C69E000869ECF /* SongsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 420FDA0B1F5C69E000869ECF /* SongsTableViewCell.swift */; };
 		420FDA0E1F5C6B8700869ECF /* SongsTablePlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420FDA0D1F5C6B8700869ECF /* SongsTablePlayerView.xib */; };
 		420FDA101F5C6B9600869ECF /* SongDetailPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 420FDA0F1F5C6B9600869ECF /* SongDetailPlayerView.xib */; };
@@ -28,6 +27,8 @@
 		42B847A81F5523FB00F31700 /* MusicArchiveUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B847A71F5523FB00F31700 /* MusicArchiveUITests.swift */; };
 		42B847B61F5524E000F31700 /* SongsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B847B51F5524E000F31700 /* SongsViewController.swift */; };
 		42C88D941F5CAE430052A4BB /* MusicAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42C88D931F5CAE430052A4BB /* MusicAPIClient.swift */; };
+		42DB375A1F5DC89800DF41EE /* SongsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42DB37591F5DC89800DF41EE /* SongsTableViewCell.xib */; };
+		42DB375C1F5DE87900DF41EE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42DB375B1F5DE87900DF41EE /* Extensions.swift */; };
 		BCF3B0EF5947BFA5EE99AA56 /* Pods_MusicArchiveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3C38EB122B71DC1699FE6F /* Pods_MusicArchiveTests.framework */; };
 		BDB1F2341DFC3A710284BFB3 /* Pods_MusicArchive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BD06BA828D5BD3221C64CD1 /* Pods_MusicArchive.framework */; };
 		FC970D5874A792B01D5378DC /* Pods_MusicArchiveUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119DEAB28500FE113E26C70E /* Pods_MusicArchiveUITests.framework */; };
@@ -53,7 +54,6 @@
 /* Begin PBXFileReference section */
 		0BD06BA828D5BD3221C64CD1 /* Pods_MusicArchive.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicArchive.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		119DEAB28500FE113E26C70E /* Pods_MusicArchiveUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicArchiveUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		420FDA091F5C69C300869ECF /* SongsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsTableView.swift; sourceTree = "<group>"; };
 		420FDA0B1F5C69E000869ECF /* SongsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsTableViewCell.swift; sourceTree = "<group>"; };
 		420FDA0D1F5C6B8700869ECF /* SongsTablePlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongsTablePlayerView.xib; sourceTree = "<group>"; };
 		420FDA0F1F5C6B9600869ECF /* SongDetailPlayerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongDetailPlayerView.xib; sourceTree = "<group>"; };
@@ -80,6 +80,8 @@
 		42B847A91F5523FB00F31700 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42B847B51F5524E000F31700 /* SongsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsViewController.swift; sourceTree = "<group>"; };
 		42C88D931F5CAE430052A4BB /* MusicAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAPIClient.swift; sourceTree = "<group>"; };
+		42DB37591F5DC89800DF41EE /* SongsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SongsTableViewCell.xib; sourceTree = "<group>"; };
+		42DB375B1F5DE87900DF41EE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5B3D3AE1A5B6BE5FC1A2CE85 /* Pods-MusicArchiveUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicArchiveUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusicArchiveUITests/Pods-MusicArchiveUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7B9A378B22C4B8C68197830E /* Pods-MusicArchiveTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicArchiveTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicArchiveTests/Pods-MusicArchiveTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9112619CD638CFB83346E585 /* Pods-MusicArchive.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicArchive.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusicArchive/Pods-MusicArchive.release.xcconfig"; sourceTree = "<group>"; };
@@ -151,8 +153,8 @@
 			isa = PBXGroup;
 			children = (
 				420FDA1E1F5CAAD600869ECF /* ArtistsTableViewCell.swift */,
-				420FDA091F5C69C300869ECF /* SongsTableView.swift */,
 				420FDA0B1F5C69E000869ECF /* SongsTableViewCell.swift */,
+				42DB37591F5DC89800DF41EE /* SongsTableViewCell.xib */,
 				420FDA0D1F5C6B8700869ECF /* SongsTablePlayerView.xib */,
 				420FDA1A1F5C722500869ECF /* SongsTablePlayerView.swift */,
 				420FDA0F1F5C6B9600869ECF /* SongDetailPlayerView.xib */,
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				42C88D931F5CAE430052A4BB /* MusicAPIClient.swift */,
+				42DB375B1F5DE87900DF41EE /* Extensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				420FDA101F5C6B9600869ECF /* SongDetailPlayerView.xib in Resources */,
 				42B8478F1F5523FB00F31700 /* Assets.xcassets in Resources */,
 				420FDA0E1F5C6B8700869ECF /* SongsTablePlayerView.xib in Resources */,
+				42DB375A1F5DC89800DF41EE /* SongsTableViewCell.xib in Resources */,
 				42B8478D1F5523FB00F31700 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -528,7 +532,6 @@
 				420FDA171F5C6F1500869ECF /* Artist.swift in Sources */,
 				420FDA191F5C6F1E00869ECF /* Song.swift in Sources */,
 				42B847B61F5524E000F31700 /* SongsViewController.swift in Sources */,
-				420FDA0A1F5C69C300869ECF /* SongsTableView.swift in Sources */,
 				42C88D941F5CAE430052A4BB /* MusicAPIClient.swift in Sources */,
 				420FDA1D1F5C724D00869ECF /* SongDetailPlayerView.swift in Sources */,
 				420FDA1F1F5CAAD600869ECF /* ArtistsTableViewCell.swift in Sources */,
@@ -536,6 +539,7 @@
 				420FDA121F5C6D7D00869ECF /* HomeViewController.swift in Sources */,
 				42B847881F5523FB00F31700 /* AppDelegate.swift in Sources */,
 				420FDA151F5C6EC900869ECF /* Constants.swift in Sources */,
+				42DB375C1F5DE87900DF41EE /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

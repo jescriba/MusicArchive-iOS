@@ -50,7 +50,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="R5a-gP-QZY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="9Mq-FU-vfh"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home" id="9Mq-FU-vfh"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oEz-Yg-4Ox" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -111,7 +111,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <state key="normal" title="Search"/>
                                 <connections>
-                                    <segue destination="lp8-pA-eCz" kind="show" id="UCq-4D-Etb"/>
+                                    <action selector="search:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZsD-Wv-n4f"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMV-tK-iUc">
@@ -174,59 +174,12 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" id="spq-ux-Ivk"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="search" id="spq-ux-Ivk"/>
                     <navigationItem key="navigationItem" title="Search" id="PVH-0X-VHh"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2150" y="1399"/>
-        </scene>
-        <!--Songs View Controller-->
-        <scene sceneID="Rnb-WG-nvd">
-            <objects>
-                <viewController id="lp8-pA-eCz" customClass="SongsViewController" customModule="MusicArchive" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="rxO-BH-152">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PA-Et-SoN" customClass="SongsTablePlayerView" customModule="MusicArchive" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="60" width="375" height="607"/>
-                                <color key="backgroundColor" red="0.93671875000000004" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PHM-0u-I0u">
-                                <rect key="frame" x="15" y="15" width="82" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TXA-b2-PgG">
-                                <rect key="frame" x="15" y="51" width="271" height="4"/>
-                                <color key="backgroundColor" red="0.29494977680000001" green="0.32137276790000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="4" id="r2Z-QG-IEi"/>
-                                    <constraint firstAttribute="width" constant="271" id="zA4-R5-Jrt"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="lSc-IO-Yek" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="PHM-0u-I0u" secondAttribute="trailing" constant="10" id="0DE-V8-nmp"/>
-                            <constraint firstItem="TXA-b2-PgG" firstAttribute="top" secondItem="PHM-0u-I0u" secondAttribute="bottom" id="Ccf-4b-nPM"/>
-                            <constraint firstItem="PHM-0u-I0u" firstAttribute="top" secondItem="rxO-BH-152" secondAttribute="top" constant="15" id="Cin-fU-9QN"/>
-                            <constraint firstItem="PHM-0u-I0u" firstAttribute="leading" secondItem="lSc-IO-Yek" secondAttribute="leading" constant="15" id="RI8-yD-2bv"/>
-                            <constraint firstItem="0PA-Et-SoN" firstAttribute="leading" secondItem="lSc-IO-Yek" secondAttribute="leading" id="UBA-ID-au5"/>
-                            <constraint firstItem="0PA-Et-SoN" firstAttribute="bottom" secondItem="lSc-IO-Yek" secondAttribute="bottom" id="bwy-fq-N02"/>
-                            <constraint firstItem="TXA-b2-PgG" firstAttribute="leading" secondItem="PHM-0u-I0u" secondAttribute="leading" id="ohZ-JH-RFO"/>
-                            <constraint firstItem="0PA-Et-SoN" firstAttribute="trailing" secondItem="lSc-IO-Yek" secondAttribute="trailing" id="pMR-Dr-CDi"/>
-                            <constraint firstItem="0PA-Et-SoN" firstAttribute="top" secondItem="TXA-b2-PgG" secondAttribute="bottom" constant="5" id="xda-5g-AIc"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="lSc-IO-Yek"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="dXW-6q-nB3"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zqA-IR-hLb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2946" y="1398"/>
         </scene>
         <!--Artists-->
         <scene sceneID="ERU-Ck-zWH">
@@ -248,28 +201,31 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rCf-G1-4ye">
-                                                    <rect key="frame" x="25" y="15" width="325" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                    <rect key="frame" x="25" y="15" width="57.5" height="30"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BYG-HY-7OA">
-                                                    <rect key="frame" x="25" y="39" width="120" height="4"/>
+                                                    <rect key="frame" x="25" y="45" width="62.5" height="4"/>
                                                     <color key="backgroundColor" red="1" green="0.66311383928571432" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="4" id="TZF-7g-Aia"/>
-                                                        <constraint firstAttribute="width" constant="120" id="nFB-cr-JGM"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="rCf-G1-4ye" secondAttribute="trailing" constant="25" id="7bP-Rc-AFz"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="rCf-G1-4ye" secondAttribute="trailing" constant="25" id="7bP-Rc-AFz"/>
                                                 <constraint firstItem="rCf-G1-4ye" firstAttribute="top" secondItem="YOJ-ao-RSF" secondAttribute="top" constant="15" id="9fW-8n-800"/>
                                                 <constraint firstItem="BYG-HY-7OA" firstAttribute="top" secondItem="rCf-G1-4ye" secondAttribute="bottom" id="dee-io-kHs"/>
                                                 <constraint firstItem="BYG-HY-7OA" firstAttribute="leading" secondItem="rCf-G1-4ye" secondAttribute="leading" id="e8j-gQ-y86"/>
                                                 <constraint firstItem="rCf-G1-4ye" firstAttribute="leading" secondItem="YOJ-ao-RSF" secondAttribute="leading" constant="25" id="jSp-mC-7rr"/>
+                                                <constraint firstItem="BYG-HY-7OA" firstAttribute="trailing" secondItem="rCf-G1-4ye" secondAttribute="trailing" constant="5" id="wbO-co-dbc"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="rCf-G1-4ye" id="P1n-J6-Kls"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -302,7 +258,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="0uN-xF-GOb"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Artists" id="QPc-D2-aqQ"/>
+                    <tabBarItem key="tabBarItem" title="Artists" image="friends" id="QPc-D2-aqQ"/>
                     <connections>
                         <outlet property="tableView" destination="Hjw-01-lfl" id="xAa-X6-Z9I"/>
                     </connections>
@@ -352,7 +308,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vFP-ge-ZMX"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Songs" id="0Ct-k5-gZJ"/>
+                    <tabBarItem key="tabBarItem" title="Songs" image="note" id="0Ct-k5-gZJ"/>
+                    <connections>
+                        <outlet property="songsTablePlayerView" destination="ktS-nT-cHg" id="d0j-Kk-odO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A2b-3T-ara" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -379,4 +338,10 @@
             <point key="canvasLocation" x="1188" y="340"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="friends" width="33" height="33"/>
+        <image name="home" width="33" height="33"/>
+        <image name="note" width="33" height="33"/>
+        <image name="search" width="33" height="33"/>
+    </resources>
 </document>

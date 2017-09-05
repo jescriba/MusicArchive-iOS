@@ -10,10 +10,13 @@ import Foundation
 import UIKit
 
 class ArtistsTableViewCell: UITableViewCell {
+    @IBOutlet weak var nameLabel: UILabel!
+
     var artist: Artist? {
         didSet {
             guard let val = artist else { return }
-            //val.name
+            guard let name = val.name else { return }
+            nameLabel.text = "\(name)"
         }
     }
     
