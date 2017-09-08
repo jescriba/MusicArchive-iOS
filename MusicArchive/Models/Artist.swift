@@ -9,9 +9,11 @@
 import Foundation
 
 class Artist {
+    var id: Int?
     var name: String?
 
     init(_ dictionary: [String:Any]) {
+        self.id = dictionary["id"] as? Int
         self.name = dictionary["name"] as? String
     }
     

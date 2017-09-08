@@ -38,6 +38,12 @@ extension ArtistsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ArtistsTableViewCell", for: indexPath) as! ArtistsTableViewCell
         cell.artist = artists[indexPath.row]
+
+        // Set selected background view properties
+        let bgView = UIView()
+        bgView.backgroundColor = UIColor(red:1.00, green:0.66, blue:1.00, alpha:1.0)
+        cell.selectedBackgroundView = bgView
+        
         return cell
     }
 
@@ -45,7 +51,13 @@ extension ArtistsViewController: UITableViewDataSource {
 
 extension ArtistsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO Prepare SongsTableView based on Artist
+        let cell = tableView.cellForRow(at: indexPath) as! ArtistsTableViewCell
+        let artist = cell.artist
+
+        // Go to songs page with songs filtered by artist
+        let controller = tabBarController as? TabBarController
+        controller?.goToSongs(artist: artist)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

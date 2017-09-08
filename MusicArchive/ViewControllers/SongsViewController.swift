@@ -12,13 +12,31 @@ import UIKit
 class SongsViewController: UIViewController {
     @IBOutlet weak var songsTablePlayerView: SongsTablePlayerView!
     var songs = [Song]()
+    var artist: Artist? {
+        didSet {
+            fetchSongs(success: { songs in
+                self.songs = songs
+                self.songsTablePlayerView.songs = self.songs
+                self.songsTablePlayerView.reloadData()
+            })
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        MusicAPIClient.fetchSongs(success: { songs in
+        fetchSongs(success: { songs in
             self.songs = songs
             self.songsTablePlayerView.songs = self.songs
+            self.songsTablePlayerView.reloadData()
         })
+    }
+
+    func fetchSongs(success: @escaping ([Song]) -> (), failure: ((Error?) -> ())? = nil) {
+        if let artistId = artist?.id {
+            MusicAPIClient.fetchSongs(artistId: artistId, success: success, failure: failure)
+        } else {
+            MusicAPIClient.fetchSongs(success: success, failure: failure)
+        }
     }
 }

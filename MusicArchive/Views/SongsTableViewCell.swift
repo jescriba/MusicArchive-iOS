@@ -6,6 +6,7 @@
 //  Copyright © 2017 Joshua. All rights reserved.
 //
 
+import AVFoundation
 import Foundation
 import UIKit
 
@@ -22,7 +23,5 @@ class SongsTableViewCell: UITableViewCell {
             recordedDateLabel.text = s.recordedDate?.toString() ?? "-"
             artistsNameLabel.text = s.artistNames()
         }
-
     }
-    
 }

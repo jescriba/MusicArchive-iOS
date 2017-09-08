@@ -9,11 +9,14 @@
 import Foundation
 
 class Song {
+    var id: Int?
     var name: String?
     var recordedDate: Date?
+    var url: URL?
     var artists: [Artist]?
 
     init(_ dictionary: [String:Any]) {
+        id = dictionary["id"] as? Int
         name = dictionary["name"] as? String
 
         // Set recorded date
@@ -30,6 +33,10 @@ class Song {
                 tempArtists.append(Artist(artistsDict))
             }
             artists = tempArtists
+        }
+
+        if let urlString = dictionary["url"] as? String {
+            url = URL(string: urlString)
         }
     }
 

@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,6 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SongsTablePlayerView" customModule="MusicArchive" customModuleProvider="target">
             <connections>
                 <outlet property="contentView" destination="iN0-l3-epB" id="hOr-JC-qVe"/>
+                <outlet property="footerNextImageView" destination="ViU-Xs-Dts" id="JN4-yl-J7T"/>
+                <outlet property="footerPlayImageView" destination="EZn-CP-xxP" id="hMF-x0-tS3"/>
+                <outlet property="footerPreviousImageView" destination="qpY-LO-oMG" id="yKo-2V-qjv"/>
+                <outlet property="footerSongName" destination="hgU-Q9-APl" id="NXc-nN-CzJ"/>
                 <outlet property="footerView" destination="3PD-O4-XCr" id="iPQ-ez-0hR"/>
                 <outlet property="tableView" destination="hJx-KN-HzN" id="wWy-7q-rvE"/>
             </connections>
@@ -28,26 +33,38 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3PD-O4-XCr">
                     <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="previous" translatesAutoresizingMaskIntoConstraints="NO" id="qpY-LO-oMG">
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="previous" translatesAutoresizingMaskIntoConstraints="NO" id="qpY-LO-oMG">
                             <rect key="frame" x="15" y="15.5" width="30" height="30"/>
+                            <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="OKS-GG-xgd"/>
                                 <constraint firstAttribute="width" constant="30" id="RJl-1B-JND"/>
                             </constraints>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="gv9-Pa-onc" appends="YES" id="3FI-ol-Dhm"/>
+                            </connections>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play" translatesAutoresizingMaskIntoConstraints="NO" id="EZn-CP-xxP">
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="play" translatesAutoresizingMaskIntoConstraints="NO" id="EZn-CP-xxP">
                             <rect key="frame" x="53" y="9" width="42" height="42"/>
+                            <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="42" id="f47-v7-igv"/>
                                 <constraint firstAttribute="width" constant="42" id="xXd-Gf-vKt"/>
                             </constraints>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="oDu-Y5-hSk" appends="YES" id="vnf-HZ-39q"/>
+                            </connections>
                         </imageView>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="next" translatesAutoresizingMaskIntoConstraints="NO" id="ViU-Xs-Dts">
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="next" translatesAutoresizingMaskIntoConstraints="NO" id="ViU-Xs-Dts">
                             <rect key="frame" x="103" y="15.5" width="30" height="30"/>
+                            <gestureRecognizers/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="1Eg-ap-ibV"/>
                                 <constraint firstAttribute="width" constant="30" id="W2a-i8-M9q"/>
                             </constraints>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="pAR-bQ-pE4" appends="YES" id="sT1-WI-vx4"/>
+                            </connections>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name Here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgU-Q9-APl">
                             <rect key="frame" x="148" y="20" width="130.5" height="20.5"/>
@@ -85,6 +102,21 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <point key="canvasLocation" x="34.5" y="54.5"/>
         </view>
+        <tapGestureRecognizer id="oDu-Y5-hSk">
+            <connections>
+                <action selector="tappedPlay:" destination="-1" id="R7r-aa-duN"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="pAR-bQ-pE4">
+            <connections>
+                <action selector="tappedNext:" destination="-1" id="i5S-za-DCT"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="gv9-Pa-onc">
+            <connections>
+                <action selector="tappedPrevious:" destination="-1" id="M1K-8j-C5E"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="next" width="100" height="100"/>
