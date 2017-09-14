@@ -23,7 +23,7 @@ class AudioPlayer: NSObject {
             p.delegate = self
         }
     }
-    var url: URL? {
+    private var url: URL? {
         didSet {
             guard let u = url else { return }
 
@@ -39,6 +39,17 @@ class AudioPlayer: NSObject {
     func play() { player?.play() }
     func pause() { player?.pause() }
     func stop() { player?.stop() }
+    // Set Url has a designated method since it takes awhile to complete
+    func setUrl(_ url: URL?,
+                success: (() -> ())? = nil,
+                failure: (() -> ())? = nil) {
+        guard let u = url else { return }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            AudioPlayer.shared.url = u
+            success?()
+        }
+    }
 
 }
 

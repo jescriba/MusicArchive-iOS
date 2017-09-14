@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+enum PlayState {
+    case playing, paused, stopped, loading
+}
+
 class SongsTablePlayerView: UIView {
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var tableView: UITableView!
@@ -17,16 +21,25 @@ class SongsTablePlayerView: UIView {
     @IBOutlet weak var footerPreviousImageView: UIImageView!
     @IBOutlet weak var footerSongName: UILabel!
     @IBOutlet weak var footerNextImageView: UIImageView!
-
+    var playIndex = 0
+    var lastFetchSize = 1
+    var page = 1
+    var artist: Artist?
     var songs = [Song]()
-    var isPlaying: Bool = false {
+    var playState: PlayState = PlayState.stopped {
         didSet {
-            DispatchQueue.main.async {
-                if (self.isPlaying) {
-                    self.footerPlayImageView.image = #imageLiteral(resourceName: "pause")
-                } else {
-                    self.footerPlayImageView.image = #imageLiteral(resourceName: "play")
-                }
+            switch self.playState {
+                case .playing:
+                    footerPlayImageView.image = #imageLiteral(resourceName: "pause")
+                    break
+                case .paused:
+                    footerPlayImageView.image = #imageLiteral(resourceName: "play")
+                    break
+                case .stopped:
+                    footerPlayImageView.image = #imageLiteral(resourceName: "play")
+                    break
+                case.loading:
+                    break
             }
         }
     }
@@ -50,10 +63,11 @@ class SongsTablePlayerView: UIView {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        tableView.showsVerticalScrollIndicator = false
         tableView.register(UINib(nibName: "SongsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "SongsTableViewCell")
 
         // Set initial footer state
-        isPlaying = false
+        playState = .stopped
         
         // Fetch songs
         MusicAPIClient.fetchSongs(success: { songs in
@@ -65,21 +79,74 @@ class SongsTablePlayerView: UIView {
     func reloadData() { tableView.reloadData() }
 
     @IBAction func tappedPlay(_ sender: UITapGestureRecognizer) {
-        if (isPlaying) {
+        if (playState == .playing) {
             AudioPlayer.shared.pause()
-            isPlaying = false
-        } else {
+            playState = .paused
+        } else if (playState != .loading) {
+            // Prevent tapping during loading - otherwise play
             AudioPlayer.shared.play()
-            isPlaying = true
+            playState = .playing
         }
     }
 
     @IBAction func tappedNext(_ sender: UITapGestureRecognizer) {
-        // TODO
+        playIndex = (playIndex + 1) % songs.count
+        let newSong = songs[playIndex]
+        let wasPlaying = playState
+        
+        // Stop playing while loading next track
+        AudioPlayer.shared.stop()
+        footerSongName.text = newSong.name
+        
+        // Start loading
+        playState = .loading
+        footerPlayImageView.animationImages = [#imageLiteral(resourceName: "loading"), #imageLiteral(resourceName: "loading-1"), #imageLiteral(resourceName: "loading-2"), #imageLiteral(resourceName: "loading-3")]
+        footerPlayImageView.animationDuration = 0.5
+        footerPlayImageView.startAnimating()
+        
+        // Update UI/animations after setting URL and continue playing if it was
+        // TODO refactor this success closure
+        AudioPlayer.shared.setUrl(newSong.url, success: {
+            DispatchQueue.main.async {
+                self.footerPlayImageView.stopAnimating()
+                if (wasPlaying == .playing) {
+                    self.playState = .playing
+                    AudioPlayer.shared.play()
+                } else {
+                    self.playState = .stopped
+                }
+                self.footerPlayImageView.stopAnimating()
+            }
+        })
     }
 
     @IBAction func tappedPrevious(_ sender: UITapGestureRecognizer) {
-        // TODO
+        playIndex = (playIndex - 1) % songs.count
+        let newSong = songs[playIndex]
+        let wasPlaying = playState
+        
+        // Stop playing while loading next track
+        AudioPlayer.shared.stop()
+        footerSongName.text = newSong.name
+        
+        // Start loading
+        playState = .loading
+        footerPlayImageView.animationImages = [#imageLiteral(resourceName: "loading"), #imageLiteral(resourceName: "loading-1"), #imageLiteral(resourceName: "loading-2"), #imageLiteral(resourceName: "loading-3")]
+        footerPlayImageView.startAnimating()
+        
+        // Update UI/animations after setting URL and continue playing if it was
+        AudioPlayer.shared.setUrl(newSong.url, success: {
+            DispatchQueue.main.async {
+                self.footerPlayImageView.stopAnimating()
+                if (wasPlaying == .playing) {
+                    self.playState = .playing
+                    AudioPlayer.shared.play()
+                } else {
+                    self.playState = .stopped
+                }
+                self.footerPlayImageView.stopAnimating()
+            }
+        })
     }
 
 }
@@ -108,18 +175,49 @@ extension SongsTablePlayerView: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath) as! SongsTableViewCell
         let song = cell.song
         footerSongName.text = song?.name ?? "-"
+        
+        // Update playIndex for next/previous tracking
+        playIndex = indexPath.row
 
         // Ensure any existing audio player stops
         AudioPlayer.shared.stop()
 
         // Play audio - async since url -> data can take awhile
         // TODO loading indicators
-        DispatchQueue.global(qos: .userInitiated).async {
-            AudioPlayer.shared.url = song?.url
+        AudioPlayer.shared.setUrl(song?.url, success: {
             AudioPlayer.shared.play()
-            self.isPlaying = true
-        }
+            self.playState = .playing
+        })
 
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if (scrollView.contentOffset.y < 0) {
+            // TODO refresh
+        }
+        
+        // Check if scrolled to bottom to refresh/update page
+        if (scrollView.contentSize.height <= scrollView.frame.height + scrollView.contentOffset.y) {
+            page += 1
+            
+            if lastFetchSize > 0 {
+                // Fetch songs for page
+                let successClosure = { (songs: [Song]) in
+                    self.lastFetchSize = songs.count
+                    self.songs += songs
+                    self.tableView.reloadData()
+                }
+                if let a = artist , let id = a.id {
+                    MusicAPIClient.fetchSongsByArtistId(id,
+                                                        params: ["page":page],
+                                                        success: successClosure)
+                } else {
+                    MusicAPIClient.fetchSongs(params: ["page":page],
+                                              success: successClosure)
+                }
+            }
+        }
     }
 }

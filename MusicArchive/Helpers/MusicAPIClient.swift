@@ -32,10 +32,12 @@ class MusicAPIClient {
         }
     }
 
-    static func fetchSongs(artistId: Int,
+    static func fetchSongsByArtistId(_ artistId: Int,
+                           params: [String:Any]? = nil,
                            success: @escaping ([Song]) -> (),
                            failure: ((Error) -> ())? = nil) {
-        let endPoint = "\(Constants.artistsEndPoint)/\(artistId)/songs"
+        var endPoint = "\(Constants.artistsEndPoint)/\(artistId)/songs"
+        if let p = params { endPoint += "?\(p.webParameterized())" }
         Alamofire.request(endPoint, headers: ["Accept":"application/json"])
                  .validate(contentType: ["application/json"])
                  .responseJSON { response in
@@ -54,10 +56,13 @@ class MusicAPIClient {
                     }
         }
     }
-
-    static func fetchSongs(success: @escaping ([Song]) -> (),
+    
+    static func fetchSongs(params: [String:Any]? = nil,
+                           success: @escaping ([Song]) -> (),
                            failure: ((Error) -> ())? = nil) {
-        Alamofire.request(Constants.songsEndPoint, headers: ["Accept":"application/json"])
+        var endPoint = "\(Constants.songsEndPoint)"
+        if let p = params { endPoint += "?\(p.webParameterized())" }
+        Alamofire.request(endPoint, headers: ["Accept":"application/json"])
             .validate(contentType: ["application/json"])
             .responseJSON { response in
                 if let json = response.result.value {
@@ -81,6 +86,8 @@ class MusicAPIClient {
                            endDate: Date? = nil,
                            success: @escaping ([Song]) -> (),
                            failure: ((Error) -> ())? = nil) {
+        
+        // Ideally search would look like /songs?name=test&artist=something&recorded_
         var searchEndPoint = Constants.songsEndPoint
 
         if let startDate = startDate {

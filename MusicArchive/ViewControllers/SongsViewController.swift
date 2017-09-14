@@ -14,6 +14,9 @@ class SongsViewController: UIViewController {
     var songs = [Song]()
     var artist: Artist? {
         didSet {
+            loadViewIfNeeded() // Avoid nil SongsTablePlayerView
+            
+            songsTablePlayerView.artist = artist
             fetchSongs(success: { songs in
                 self.songs = songs
                 self.songsTablePlayerView.songs = self.songs
@@ -24,7 +27,10 @@ class SongsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        fetchSongs()
+    }
+    
+    func fetchSongs() {
         fetchSongs(success: { songs in
             self.songs = songs
             self.songsTablePlayerView.songs = self.songs
@@ -32,11 +38,11 @@ class SongsViewController: UIViewController {
         })
     }
 
-    func fetchSongs(success: @escaping ([Song]) -> (), failure: ((Error?) -> ())? = nil) {
+    private func fetchSongs(success: @escaping ([Song]) -> (), failure: ((Error?) -> ())? = nil) {
         if let artistId = artist?.id {
-            MusicAPIClient.fetchSongs(artistId: artistId, success: success, failure: failure)
+            MusicAPIClient.fetchSongsByArtistId(artistId, params: ["page":songsTablePlayerView.page], success: success, failure: failure)
         } else {
-            MusicAPIClient.fetchSongs(success: success, failure: failure)
+            MusicAPIClient.fetchSongs(params: ["page": songsTablePlayerView.page], success: success, failure: failure)
         }
     }
 }
