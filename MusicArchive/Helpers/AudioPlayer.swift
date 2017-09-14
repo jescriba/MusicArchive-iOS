@@ -35,6 +35,17 @@ class AudioPlayer: NSObject {
             }
         }
     }
+    
+    override init() {
+        super.init()
+        
+        // Enable audio when side clicker is set to mute
+        let audioSession = AVAudioSession.sharedInstance()
+        do {
+            try audioSession.setActive(true)
+            try audioSession.setCategory("AVAudioSessionCategoryPlayback")
+        } catch  { print("audio session crash") }
+    }
 
     func play() { player?.play() }
     func pause() { player?.pause() }
