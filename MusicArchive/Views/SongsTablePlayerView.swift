@@ -67,6 +67,9 @@ class SongsTablePlayerView: UIView {
         tableView.tableFooterView = UIView()
         tableView.showsVerticalScrollIndicator = false
         tableView.register(UINib(nibName: "SongsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "SongsTableViewCell")
+        
+        // Set AudioPlayerDelegate for playing next track
+        AudioPlayer.shared.delegate = self
 
         // Set initial footer state
         playState = .stopped
@@ -172,6 +175,13 @@ extension SongsTablePlayerView: UITableViewDataSource {
     }
 }
 
+extension SongsTablePlayerView: AudioPlayerDelegate {
+    func completedTrack() {
+        // Fake a tap for now - likely not best practice and may want to refactor
+        tappedNext(UITapGestureRecognizer())
+    }
+}
+
 extension SongsTablePlayerView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! SongsTableViewCell
@@ -188,7 +198,7 @@ extension SongsTablePlayerView: UITableViewDelegate {
         // TODO loading indicators
         AudioPlayer.shared.setUrl(song?.url, success: {
             AudioPlayer.shared.play()
-            self.playState = .playing
+            DispatchQueue.main.async { self.playState = .playing }
         })
 
         tableView.deselectRow(at: indexPath, animated: true)

@@ -9,12 +9,16 @@
 import Foundation
 import AVFoundation
 
+protocol AudioPlayerDelegate {
+    func completedTrack()
+}
+
 // Note: My original approach was to use AVAudioEngine so I could do
 // nicer things like track fading and fx - but I'd likely have to download the file
 // if I wanted to use AVAudioPlayerNode - see: https://stackoverflow.com/questions/30862664/stream-data-from-network-in-avaudioengine-is-it-possible
 class AudioPlayer: NSObject {
-
     static let shared = AudioPlayer()
+    var delegate: AudioPlayerDelegate?
     private var player: AVAudioPlayer? {
         didSet {
             guard let p = player else { return }
@@ -65,5 +69,8 @@ class AudioPlayer: NSObject {
 }
 
 extension AudioPlayer: AVAudioPlayerDelegate {
-    // TODO
+    // TODO - This could be expanded to handle audio interruptions more gracefully
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        delegate?.completedTrack()
+    }
 }
