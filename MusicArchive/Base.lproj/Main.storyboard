@@ -301,7 +301,7 @@
                                 <rect key="frame" x="0.0" y="80" width="375" height="538"/>
                                 <color key="backgroundColor" red="0.93808593750000002" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K88-7m-Oiu">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Songs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K88-7m-Oiu">
                                 <rect key="frame" x="15" y="35" width="82" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
@@ -315,23 +315,34 @@
                                     <constraint firstAttribute="width" constant="271" id="a3W-p6-5Ls"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="artist or album name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VfC-0z-Xlq">
+                                <rect key="frame" x="117" y="35" width="169" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" red="0.64514423076923078" green="0.0" blue="0.57514423076923082" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="K88-7m-Oiu" firstAttribute="top" secondItem="vFP-ge-ZMX" secondAttribute="top" constant="15" id="0Az-0s-1kN"/>
+                            <constraint firstItem="VfC-0z-Xlq" firstAttribute="bottom" secondItem="K88-7m-Oiu" secondAttribute="bottom" id="C9k-F3-jH2"/>
                             <constraint firstItem="69k-hC-zY6" firstAttribute="leading" secondItem="K88-7m-Oiu" secondAttribute="leading" id="CGK-uM-bhd"/>
                             <constraint firstItem="69k-hC-zY6" firstAttribute="top" secondItem="K88-7m-Oiu" secondAttribute="bottom" id="CtX-VA-TYp"/>
+                            <constraint firstItem="VfC-0z-Xlq" firstAttribute="trailing" secondItem="69k-hC-zY6" secondAttribute="trailing" id="Ddd-Hd-1kf"/>
                             <constraint firstItem="ktS-nT-cHg" firstAttribute="leading" secondItem="vFP-ge-ZMX" secondAttribute="leading" id="Fif-8w-25j"/>
                             <constraint firstItem="vFP-ge-ZMX" firstAttribute="bottom" secondItem="ktS-nT-cHg" secondAttribute="bottom" id="FnN-w4-Zcp"/>
                             <constraint firstItem="ktS-nT-cHg" firstAttribute="top" secondItem="69k-hC-zY6" secondAttribute="bottom" constant="5" id="JjG-m4-4Vk"/>
+                            <constraint firstItem="VfC-0z-Xlq" firstAttribute="height" secondItem="K88-7m-Oiu" secondAttribute="height" id="Udn-hK-xHe"/>
+                            <constraint firstItem="VfC-0z-Xlq" firstAttribute="top" secondItem="K88-7m-Oiu" secondAttribute="top" id="YBp-G7-bt7"/>
                             <constraint firstItem="K88-7m-Oiu" firstAttribute="leading" secondItem="vFP-ge-ZMX" secondAttribute="leading" constant="15" id="ant-dX-eTN"/>
-                            <constraint firstItem="vFP-ge-ZMX" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="K88-7m-Oiu" secondAttribute="trailing" constant="10" id="dLX-NW-gkw"/>
+                            <constraint firstItem="VfC-0z-Xlq" firstAttribute="leading" secondItem="K88-7m-Oiu" secondAttribute="trailing" constant="20" id="omU-Vc-Rye"/>
                             <constraint firstItem="ktS-nT-cHg" firstAttribute="trailing" secondItem="vFP-ge-ZMX" secondAttribute="trailing" id="vXz-xE-CcV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vFP-ge-ZMX"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Songs" image="notes" id="0Ct-k5-gZJ"/>
                     <connections>
+                        <outlet property="detailTitleLabel" destination="VfC-0z-Xlq" id="eGQ-CZ-K6M"/>
                         <outlet property="songsTablePlayerView" destination="ktS-nT-cHg" id="d0j-Kk-odO"/>
                     </connections>
                 </viewController>

@@ -11,12 +11,18 @@ import UIKit
 
 class SongsViewController: UIViewController {
     @IBOutlet weak var songsTablePlayerView: SongsTablePlayerView!
+    @IBOutlet weak var detailTitleLabel: UILabel!
     var songs = [Song]()
-    var artist: Artist? {
+    var artist: Artist? = nil {
         didSet {
             loadViewIfNeeded() // Avoid nil SongsTablePlayerView
             
             songsTablePlayerView.artist = artist
+            if let name = artist?.name {
+                detailTitleLabel.text = name
+            } else {
+                detailTitleLabel.text = ""
+            }
             fetchSongs(success: { songs in
                 self.songs = songs
                 self.songsTablePlayerView.songs = self.songs

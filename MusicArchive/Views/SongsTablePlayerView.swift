@@ -23,7 +23,9 @@ class SongsTablePlayerView: UIView {
     @IBOutlet weak var footerNextImageView: UIImageView!
     var playIndex = 0
     var lastFetchSize = 1
-    var page = 1
+    var page = 1 {
+        didSet { if (page == 1) { lastFetchSize = 1 } }
+    }
     var artist: Artist?
     var songs = [Song]()
     var playState: PlayState = PlayState.stopped {
