@@ -43,7 +43,7 @@ class AudioPlayer: NSObject {
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setActive(true)
-            try audioSession.setCategory("AVAudioSessionCategoryPlayback")
+            try audioSession.setCategory(AVAudioSessionCategoryPlayback)
         } catch  { print("audio session crash") }
     }
 
