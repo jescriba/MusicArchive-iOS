@@ -12,6 +12,7 @@ import UIKit
 class SongsViewController: UIViewController {
     @IBOutlet weak var songsTablePlayerView: SongsTablePlayerView!
     @IBOutlet weak var detailTitleLabel: UILabel!
+    var loadingImageView = UIImageView(image: #imageLiteral(resourceName: "loading"))
     var songs = [Song]()
     var artist: Artist? = nil {
         didSet {
@@ -33,14 +34,33 @@ class SongsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        startLoadingAnimation()
         fetchSongs()
     }
     
+    // Update UI for loading indicators
+    func startLoadingAnimation() {
+        loadingImageView.frame = CGRect(x: view.frame.midX - 25, y: view.frame.midY - 25, width: 50, height: 50)
+        loadingImageView.animationImages = [#imageLiteral(resourceName: "loading"), #imageLiteral(resourceName: "loading-1"), #imageLiteral(resourceName: "loading-2"), #imageLiteral(resourceName: "loading-3")]
+        loadingImageView.animationDuration = 0.4
+        loadingImageView.startAnimating()
+        view.addSubview(loadingImageView)
+    }
+    
+    func stopLoadingAnimation() {
+        loadingImageView.stopAnimating()
+        loadingImageView.removeFromSuperview()
+    }
+    
+    // Network calls to load songs
     func fetchSongs() {
         fetchSongs(success: { songs in
             self.songs = songs
             self.songsTablePlayerView.songs = self.songs
             self.songsTablePlayerView.reloadData()
+            // Ensure initial loading animation is removed
+            self.stopLoadingAnimation()
         })
     }
 

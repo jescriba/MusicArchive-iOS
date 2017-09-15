@@ -11,6 +11,7 @@ import UIKit
 
 class ArtistsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    var loadingImageView = UIImageView(image: #imageLiteral(resourceName: "loading"))
     var artists = [Artist]()
 
     override func viewDidLoad() {
@@ -21,10 +22,26 @@ class ArtistsViewController: UIViewController {
         tableView.dataSource = self
         tableView.delegate = self
 
+        startLoadingAnimation()
         MusicAPIClient.fetchArtists(success: { artists in
             self.artists = artists
             self.tableView.reloadData()
+            self.stopLoadingAnimation()
         })
+    }
+    
+    // Update UI for loading indicators
+    func startLoadingAnimation() {
+        loadingImageView.frame = CGRect(x: view.frame.midX - 25, y: view.frame.midY - 25, width: 50, height: 50)
+        loadingImageView.animationImages = [#imageLiteral(resourceName: "loading"), #imageLiteral(resourceName: "loading-1"), #imageLiteral(resourceName: "loading-2"), #imageLiteral(resourceName: "loading-3")]
+        loadingImageView.animationDuration = 0.4
+        loadingImageView.startAnimating()
+        view.addSubview(loadingImageView)
+    }
+    
+    func stopLoadingAnimation() {
+        loadingImageView.stopAnimating()
+        loadingImageView.removeFromSuperview()
     }
 
 }
