@@ -15,6 +15,12 @@ extension Date {
         dateFormatter.dateFormat = "MMMM d, yyyy"
         return dateFormatter.string(from: self)
     }
+    
+    func toSearchString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        return dateFormatter.string(from: self)
+    }
 }
 
 extension Dictionary where Key == String {
