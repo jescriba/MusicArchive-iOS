@@ -39,12 +39,14 @@ class TabBarController: UITabBarController {
         selectedIndex = Page.songs.rawValue
     }
     
-    func goToSongs(search: String) {
+    func goToSongs(search: [String:Any]) {
         // TODO Implement search
         let songsVC = viewControllers?[Page.songs.rawValue] as? SongsViewController
+        songsVC?.loadViewIfNeeded() // Preventing nil when using IBOutlet before load
         songsVC?.songs = []
         songsVC?.songsTablePlayerView?.page = 1
-        songsVC?.fetchSongs()
+        songsVC?.detailTitleLabel.text = "search"
+        songsVC?.searchSongs(search)
         
         // Present VC
         selectedIndex = Page.songs.rawValue

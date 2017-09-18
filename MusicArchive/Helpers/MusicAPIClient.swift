@@ -81,27 +81,10 @@ class MusicAPIClient {
         }
     }
 
-    static func searchSongs(artistName: String? = nil,
-                           startDate: Date? = nil,
-                           endDate: Date? = nil,
+    static func searchSongs(_ params: [String:Any],
                            success: @escaping ([Song]) -> (),
                            failure: ((Error) -> ())? = nil) {
-        
-        // Ideally search would look like /songs?name=test&artist=something&recorded_
-        var searchEndPoint = Constants.songsEndPoint
-
-        if let startDate = startDate {
-            // TODO
-        }
-
-        if let endDate = endDate {
-            // TODO
-        }
-
-        if let artistName = artistName {
-            // TODO
-        }
-
+        let searchEndPoint = "\(Constants.searchEndPoint)?\(params.webParameterized())"
         Alamofire.request(searchEndPoint, headers: ["Accept":"application/json"])
             .validate(contentType: ["application/json"])
             .responseJSON { response in

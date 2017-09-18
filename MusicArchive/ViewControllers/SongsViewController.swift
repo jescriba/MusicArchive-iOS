@@ -54,6 +54,16 @@ class SongsViewController: UIViewController {
     }
     
     // Network calls to load songs
+    func searchSongs(_ params: [String:Any]) {
+        MusicAPIClient.searchSongs(params, success: { songs in
+            self.songs = songs
+            self.songsTablePlayerView.songs = songs
+            self.songsTablePlayerView.reloadData()
+            // Ensure initial loading animation is removed
+            self.stopLoadingAnimation()
+        })
+    }
+    
     func fetchSongs() {
         fetchSongs(success: { songs in
             self.songs = songs

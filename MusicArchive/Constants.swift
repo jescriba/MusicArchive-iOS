@@ -12,4 +12,5 @@ class Constants {
     static let baseEndPoint = "http://www.jfeliz.com"
     static let artistsEndPoint = "\(Constants.baseEndPoint)/artists"
     static let songsEndPoint = "\(Constants.baseEndPoint)/songs"
+    static let searchEndPoint = "\(Constants.baseEndPoint)/search"
 }

@@ -30,8 +30,7 @@ class SearchViewController: UIViewController {
     @IBAction func search(_ sender: Any) {
         // TODO Search button pressed - navigate to Songs tab configuration with filtered songs to match search parameters
         let tabController = tabBarController as! TabBarController
-        let searchString = ""
-        tabController.goToSongs(search: searchString)
+        tabController.goToSongs(search: ["song-name":songTextField.text, "artist-name":artistTextField.text])
     }
 
     @IBAction func viewTapped(_ sender: UITapGestureRecognizer) {
