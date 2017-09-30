@@ -19,6 +19,8 @@ protocol AudioPlayerDelegate {
 class AudioPlayer: NSObject {
     static let shared = AudioPlayer()
     var delegate: AudioPlayerDelegate?
+//    var queue: [URL]
+//    //var load
     private var player: AVAudioPlayer? {
         didSet {
             guard let p = player else { return }

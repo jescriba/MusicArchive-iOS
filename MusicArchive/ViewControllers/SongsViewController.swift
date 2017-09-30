@@ -92,6 +92,7 @@ extension SongsViewController: SongPopoverDelegate {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SongActionPopover") as! SongPopoverViewController
         vc.modalPresentationStyle = .popover
         vc.preferredContentSize = CGSize(width: 150, height: 150)
+        vc.songId = song.id ?? 0 // Default songId hack
         
         // Set delegate to handle popover actions
         vc.delegate = self
@@ -105,7 +106,9 @@ extension SongsViewController: SongPopoverDelegate {
         present(vc, animated: true, completion: nil)
     }
     
-    func didPerformAction(songPopoverAction: SongPopoverAction) {
+    func didPerformAction(songPopoverAction: SongPopoverAction, songId: Int) {
+        dismiss(animated: true, completion: nil)
+        
         switch songPopoverAction {
         case .playNext:
             break
@@ -114,10 +117,10 @@ extension SongsViewController: SongPopoverDelegate {
         case .favorite:
             break
         case .share:
+            let vc = UIActivityViewController(activityItems: ["Check out this song", URL(string: "\(Constants.songsEndPoint)/\(songId)")], applicationActivities: nil)
+            present(vc, animated: true, completion: nil)
             break
         }
-        
-        dismiss(animated: true, completion: nil)
     }
 }
 
