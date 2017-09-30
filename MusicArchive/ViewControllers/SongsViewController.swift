@@ -37,6 +37,9 @@ class SongsViewController: UIViewController {
         
         startLoadingAnimation()
         fetchSongs()
+        
+        // Setup SongsVC to handle popover presentation
+        songsTablePlayerView.delegate = self
     }
     
     // Update UI for loading indicators
@@ -80,5 +83,46 @@ class SongsViewController: UIViewController {
         } else {
             MusicAPIClient.fetchSongs(params: ["page": songsTablePlayerView.page], success: success, failure: failure)
         }
+    }
+}
+
+extension SongsViewController: SongPopoverDelegate {
+    func showPopover(song: Song, cell: SongsTableViewCell) {
+        // Create and edit Popover VC
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SongActionPopover") as! SongPopoverViewController
+        vc.modalPresentationStyle = .popover
+        vc.preferredContentSize = CGSize(width: 150, height: 150)
+        
+        // Set delegate to handle popover actions
+        vc.delegate = self
+
+        // Prepare Popover Presentation
+        let presentationController = vc.popoverPresentationController
+        presentationController?.delegate = self
+        presentationController?.sourceView = cell
+        presentationController?.sourceRect = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.height)
+        
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func didPerformAction(songPopoverAction: SongPopoverAction) {
+        switch songPopoverAction {
+        case .playNext:
+            break
+        case .playLater:
+            break
+        case .favorite:
+            break
+        case .share:
+            break
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+}
+
+extension SongsViewController: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return .none
     }
 }

@@ -21,6 +21,7 @@ class SongsTablePlayerView: UIView {
     @IBOutlet weak var footerPreviousImageView: UIImageView!
     @IBOutlet weak var footerSongName: UILabel!
     @IBOutlet weak var footerNextImageView: UIImageView!
+    var delegate: SongPopoverDelegate?
     var playIndex = 0
     var lastFetchSize = 1
     var page = 1 {
@@ -153,7 +154,13 @@ class SongsTablePlayerView: UIView {
             }
         })
     }
-
+    
+    @objc func didLongPressOnCell(sender: UILongPressGestureRecognizer) {
+        guard let cell = sender.view as? SongsTableViewCell else { return }
+        guard let song = cell.song else { return }
+        
+        delegate?.showPopover(song: song, cell: cell)
+    }
 }
 
 extension SongsTablePlayerView: UITableViewDataSource {
@@ -170,6 +177,10 @@ extension SongsTablePlayerView: UITableViewDataSource {
         let bgView = UIView()
         bgView.backgroundColor = UIColor(red:1.00, green:0.66, blue:1.00, alpha:1.0)
         cell.selectedBackgroundView = bgView
+        
+        // Setup long press behavior
+        let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(didLongPressOnCell))
+        cell.addGestureRecognizer(recognizer)
 
         return cell
     }

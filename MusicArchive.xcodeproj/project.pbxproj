@@ -22,6 +22,7 @@
 		426F5C7D1F60B63800535A89 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 426F5C7C1F60B63800535A89 /* AudioPlayer.swift */; };
 		428089CE1F6486360029C212 /* AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428089CD1F6486360029C212 /* AlbumsViewController.swift */; };
 		4286D6CC1F61FEB900A6E2C8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4286D6CB1F61FEB900A6E2C8 /* TabBarController.swift */; };
+		429468361F802EFE0018CC35 /* SongPopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 429468351F802EFE0018CC35 /* SongPopoverViewController.swift */; };
 		42A93E251F5738BF002186D5 /* ArtistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42A93E241F5738BF002186D5 /* ArtistsViewController.swift */; };
 		42B847881F5523FB00F31700 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B847871F5523FB00F31700 /* AppDelegate.swift */; };
 		42B8478A1F5523FB00F31700 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B847891F5523FB00F31700 /* SearchViewController.swift */; };
@@ -76,6 +77,7 @@
 		426F5C7C1F60B63800535A89 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		428089CD1F6486360029C212 /* AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumsViewController.swift; sourceTree = "<group>"; };
 		4286D6CB1F61FEB900A6E2C8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		429468351F802EFE0018CC35 /* SongPopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongPopoverViewController.swift; sourceTree = "<group>"; };
 		42A93E241F5738BF002186D5 /* ArtistsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistsViewController.swift; sourceTree = "<group>"; };
 		42B847841F5523FB00F31700 /* MusicArchive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicArchive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42B847871F5523FB00F31700 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				42A93E241F5738BF002186D5 /* ArtistsViewController.swift */,
 				420FDA111F5C6D7D00869ECF /* HomeViewController.swift */,
 				4286D6CB1F61FEB900A6E2C8 /* TabBarController.swift */,
+				429468351F802EFE0018CC35 /* SongPopoverViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -576,6 +579,7 @@
 				420FDA1F1F5CAAD600869ECF /* ArtistsTableViewCell.swift in Sources */,
 				420FDA1B1F5C722500869ECF /* SongsTablePlayerView.swift in Sources */,
 				420FDA121F5C6D7D00869ECF /* HomeViewController.swift in Sources */,
+				429468361F802EFE0018CC35 /* SongPopoverViewController.swift in Sources */,
 				42B847881F5523FB00F31700 /* AppDelegate.swift in Sources */,
 				420FDA151F5C6EC900869ECF /* Constants.swift in Sources */,
 				42DB375C1F5DE87900DF41EE /* Extensions.swift in Sources */,
