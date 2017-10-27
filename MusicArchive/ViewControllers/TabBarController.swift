@@ -29,9 +29,10 @@ class TabBarController: UITabBarController {
 
     func load() { delegate = self }
 
-    func goToSongs(artist: Artist?) {
+    func goToSongs(artist: Artist? = nil, album: Album? = nil) {
         let songsVC = viewControllers?[Page.songs.rawValue] as? SongsViewController
         songsVC?.artist = artist
+        songsVC?.album = album
         songsVC?.songsTablePlayerView?.page = 1
         songsVC?.fetchSongs()
         

@@ -31,6 +31,22 @@ class SongsViewController: UIViewController {
             })
         }
     }
+    var album: Album? = nil {
+        didSet {
+            loadViewIfNeeded() // Avoid nil SongsTablePlayerView
+            
+            songsTablePlayerView.album = album
+            if let name = album?.name {
+                detailTitleLabel.text = name
+            } else {
+                detailTitleLabel.text = ""
+            }
+            
+            songs = album?.songs ?? [Song]()
+            songsTablePlayerView.songs = album?.songs ?? [Song]()
+            songsTablePlayerView.reloadData()
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,7 +133,7 @@ extension SongsViewController: SongPopoverDelegate {
         case .favorite:
             break
         case .share:
-            let vc = UIActivityViewController(activityItems: ["Check out this song", URL(string: "\(Constants.songsEndPoint)/\(songId)")], applicationActivities: nil)
+            let vc = UIActivityViewController(activityItems: ["Check out this song", URL(string: "\(Endpoints.songsEndPoint)/\(songId)")!], applicationActivities: nil)
             present(vc, animated: true, completion: nil)
             break
         }

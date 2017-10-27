@@ -20,9 +20,9 @@ class Song {
         name = dictionary["name"] as? String
 
         // Set recorded date
-        if let recordedDateString = dictionary["recorded_at"] as? String {
+        if let recordedDateString = dictionary["recorded_date"] as? String {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
+            dateFormatter.dateFormat = "yyyy-MM-dd"
             recordedDate = dateFormatter.date(from: recordedDateString)
         }
 

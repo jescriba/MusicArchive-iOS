@@ -28,6 +28,7 @@ class SongsTablePlayerView: UIView {
         didSet { if (page == 1) { lastFetchSize = 1 } }
     }
     var artist: Artist?
+    var album: Album?
     var songs = [Song]()
     var playState: PlayState = PlayState.stopped {
         didSet {
@@ -234,6 +235,10 @@ extension SongsTablePlayerView: UITableViewDelegate {
                 }
                 if let a = artist , let id = a.id {
                     MusicAPIClient.fetchSongsByArtistId(id,
+                                                        params: ["page":page],
+                                                        success: successClosure)
+                } else if let a = album, let id = a.id {
+                    MusicAPIClient.fetchSongsByAlbumId(id,
                                                         params: ["page":page],
                                                         success: successClosure)
                 } else {
