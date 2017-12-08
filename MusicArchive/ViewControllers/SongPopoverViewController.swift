@@ -15,18 +15,18 @@ enum SongPopoverAction {
 
 protocol SongPopoverDelegate {
     func showPopover(song: Song, cell: SongsTableViewCell)
-    func didPerformAction(songPopoverAction: SongPopoverAction, songId: Int)
+    func didPerformAction(songPopoverAction: SongPopoverAction, song: Song)
 }
 
 class SongPopoverViewController: UIViewController {
     var delegate: SongPopoverDelegate?
-    var songId: Int = 0
+    var song: Song = Song([String:String]())
     
-    @IBAction func playNext(_ sender: Any) { delegate?.didPerformAction(songPopoverAction: .playNext, songId: songId) }
+    @IBAction func playNext(_ sender: Any) { delegate?.didPerformAction(songPopoverAction: .playNext, song: song) }
     
-    @IBAction func playLater(_ sender: Any) { delegate?.didPerformAction(songPopoverAction: .playLater, songId: songId) }
+    @IBAction func playLater(_ sender: Any) { delegate?.didPerformAction(songPopoverAction: .playLater, song: song) }
     
-    @IBAction func favorite(_ sender: Any) { delegate?.didPerformAction(songPopoverAction: .favorite, songId: songId) }
+    @IBAction func favorite(_ sender: Any) { delegate?.didPerformAction(songPopoverAction: .favorite, song: song) }
     
-    @IBAction func share(_ sender: Any) { delegate?.didPerformAction(songPopoverAction: .share, songId: songId) }
+    @IBAction func share(_ sender: Any) { delegate?.didPerformAction(songPopoverAction: .share, song: song) }
 }

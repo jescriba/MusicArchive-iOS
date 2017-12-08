@@ -12,6 +12,7 @@ import UIKit
 class ArtistsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var loadingImageView = UIImageView(image: #imageLiteral(resourceName: "loading"))
+    let refreshControl = UIRefreshControl()
     var artists = [Artist]()
 
     override func viewDidLoad() {
@@ -75,6 +76,28 @@ extension ArtistsViewController: UITableViewDelegate {
         let controller = tabBarController as? TabBarController
         controller?.goToSongs(artist: artist)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Refresh on scroll down
+        if (scrollView.contentOffset.y < -90) {
+            tableView.addSubview(refreshControl)
+            refreshControl.beginRefreshing()
+            MusicAPIClient.fetchArtists(success: { artists in
+                self.artists = artists
+                self.tableView.reloadData()
+                self.stopLoadingAnimation()
+                self.refreshControl.endRefreshing()
+            })
+        }
+    }
+}
+
+extension ArtistsViewController: ContainerDelegate {
+    var containerView: UIView {
+        get {
+            return view
+        }
     }
 }
 

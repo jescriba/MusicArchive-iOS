@@ -13,6 +13,7 @@ class SearchViewController: UIViewController {
     @IBOutlet weak var songTextField: UITextField!
     @IBOutlet weak var startDatePicker: UIDatePicker!
     @IBOutlet weak var endDatePicker: UIDatePicker!
+    @IBOutlet weak var searchButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,4 +46,12 @@ extension SearchViewController: UITextFieldDelegate {
         return true
     }
     
+}
+
+extension SearchViewController: ContainerDelegate {
+    var containerView: UIView {
+        get {
+            return view
+        }
+    }
 }

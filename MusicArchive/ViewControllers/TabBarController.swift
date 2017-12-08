@@ -13,28 +13,51 @@ enum Page:Int {
     case home, artists, albums, songs, search
 }
 
+protocol ContainerDelegate {
+    var containerView: UIView { get }
+}
+
 class TabBarController: UITabBarController {
+    fileprivate var hasSongControls: Bool = false
+    fileprivate var playerView: SongPlayerView!
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-
         load()
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
         load()
     }
 
-    func load() { delegate = self }
+    func load() {
+        delegate = self
+        
+        // Add song player view
+        playerView = SongPlayerView(frame: view.frame)
+        playerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(playerView)
+        playerView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -110).isActive = true
+        playerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        view.bringSubview(toFront: tabBar)
+    }
 
     func goToSongs(artist: Artist? = nil, album: Album? = nil) {
         let songsVC = viewControllers?[Page.songs.rawValue] as? SongsViewController
-        songsVC?.artist = artist
-        songsVC?.album = album
-        songsVC?.songsTablePlayerView?.page = 1
-        songsVC?.fetchSongs()
+        
+        if let artist = artist {
+            songsVC?.isPaging = false
+            songsVC?.detailTitle = artist.name
+            songsVC?.fetchSongs(artist: artist)
+        }
+        
+        if let album = album {
+            songsVC?.isPaging = false
+            songsVC?.detailTitle = album.name
+            songsVC?.songs = album.songs ?? [Song]()
+        }
         
         // Present VC
         selectedIndex = Page.songs.rawValue
@@ -45,8 +68,7 @@ class TabBarController: UITabBarController {
         let songsVC = viewControllers?[Page.songs.rawValue] as? SongsViewController
         songsVC?.loadViewIfNeeded() // Preventing nil when using IBOutlet before load
         songsVC?.songs = []
-        songsVC?.songsTablePlayerView?.page = 1
-        songsVC?.detailTitleLabel.text = "search"
+        songsVC?.detailTitle = "search"
         songsVC?.searchSongs(search)
         
         // Present VC
@@ -58,12 +80,25 @@ class TabBarController: UITabBarController {
 extension TabBarController: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        // Reset SongsVC artist to nil if not transitioning with goToSongs()
+        // Allow for spacing on the footer
+        // Reset SongsVC detail title if not transitioning with goToSongs()
         if let songsVC = viewController as? SongsViewController {
-            songsVC.artist = nil
-            songsVC.songsTablePlayerView.page = 1
+            songsVC.detailTitleLabel.text = ""
+            songsVC.isPaging = true
             songsVC.fetchSongs()
         }
     }
 
+}
+
+extension TabBarController: SongPlayerViewDelegate {
+
+    func updateSong(_ s: Song) {
+        playerView.song = s
+    }
+    
+    func updatePlayState(_ s: PlayState) {
+        playerView.playState = s
+    }
+    
 }

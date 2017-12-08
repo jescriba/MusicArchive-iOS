@@ -12,6 +12,7 @@ import UIKit
 class AlbumsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var loadingImageView = UIImageView(image: #imageLiteral(resourceName: "loading"))
+    let refreshControl = UIRefreshControl()
     var albums = [Album]()
     
     override func viewDidLoad() {
@@ -75,5 +76,27 @@ extension AlbumsViewController: UITableViewDelegate {
         let controller = tabBarController as? TabBarController
         controller?.goToSongs(album: album)
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // Refresh on scroll down
+        if (scrollView.contentOffset.y < -90) {
+            tableView.addSubview(refreshControl)
+            refreshControl.beginRefreshing()
+            MusicAPIClient.fetchAlbums(success: { albums in
+                self.albums = albums
+                self.tableView.reloadData()
+                self.stopLoadingAnimation()
+                self.refreshControl.endRefreshing()
+            })
+        }
+    }
+}
+
+extension AlbumsViewController: ContainerDelegate {
+    var containerView: UIView {
+        get {
+            return view
+        }
     }
 }

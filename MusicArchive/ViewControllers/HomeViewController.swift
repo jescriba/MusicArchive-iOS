@@ -10,5 +10,14 @@ import Foundation
 import UIKit
 
 class HomeViewController: UIViewController {
+    @IBOutlet weak var baseView: HomeView!
+    
+}
 
+extension HomeViewController: ContainerDelegate {
+    var containerView: UIView {
+        get {
+            return baseView
+        }
+    }
 }
