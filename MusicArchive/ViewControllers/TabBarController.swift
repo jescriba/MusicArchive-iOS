@@ -80,7 +80,6 @@ class TabBarController: UITabBarController {
 extension TabBarController: UITabBarControllerDelegate {
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
-        // Allow for spacing on the footer
         // Reset SongsVC detail title if not transitioning with goToSongs()
         if let songsVC = viewController as? SongsViewController {
             songsVC.detailTitleLabel.text = ""

@@ -7,12 +7,19 @@
 //
 
 import Foundation
+import AVFoundation
 
 class Song {
     var id: Int?
     var name: String?
     var recordedDate: Date?
     var url: URL?
+    var asset: AVAsset? {
+        get {
+            guard let u = url else { return nil }
+            return AVAsset(url: u)
+        }
+    }
     var artists: [Artist]?
 
     init(_ dictionary: [String:Any]) {

@@ -160,10 +160,7 @@ class SongPlayerView: UIView {
         }
     }
     @IBAction func tappedNext(_ sender: Any) {
-        // delega
-        //        playIndex = (playIndex + 1) % songs.count
-        //        let newSong = songs[playIndex]
-        //        let wasPlaying = playState
+        AudioPlayer.shared.skipToNext()
     }
     
 }

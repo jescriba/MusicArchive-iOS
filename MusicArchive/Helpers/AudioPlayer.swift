@@ -15,73 +15,46 @@ import AVFoundation
 class AudioPlayer: NSObject {
     static let shared = AudioPlayer()
     var songPlayerViewDelegate: SongPlayerViewDelegate?
-    private var player: AVAudioPlayer? {
-        didSet {
-            guard let p = player else { return }
-            p.numberOfLoops = 0
-            p.delegate = self
-        }
-    }
-    // Short queue to prevent loading songs up front
-    private var dataQueue = [Data]() {
-        didSet {
-            // Grab the first data and update the player
-            do {
-                let data = dataQueue.first!
-                player = try AVAudioPlayer(data: data)
-                DispatchQueue.main.async {
-                    self.songPlayerViewDelegate?.updatePlayState(.stopped)
-                }
-                
-            } catch {
-                print("failed loading avaudioplayer")
-            }
-        }
-    }
-    
-    private var songQueue = [Song]() {
-        didSet {
-            if oldValue.first?.id != songQueue.first?.id && oldValue.count > songQueue.count {
-                // Removing/dequeuing
-                if dataQueue.count < 3 {
-                    //            do {
-                    //                let data = try Data(contentsOf: u)
-                    //                player = try AVAudioPlayer(data: data)
-                    //            } catch {
-                    //                print("Failed loading AVAudioPlayer")
-                    //            }
-                }
-            } else if oldValue.first?.id != songQueue.first?.id && oldValue.count < songQueue.count {
-                // PLAY NOW: by inserting to front of queue
-                guard let u = songQueue.first?.url else { return }
-                
-                // Insert data to front of queue
-                songPlayerViewDelegate?.updatePlayState(.loading)
-                DispatchQueue.global(qos: .userInitiated).async {
-                    do {
-                        let data = try Data(contentsOf: u)
-                        self.dataQueue.insert(data, at: 0)
-                    } catch { print("Failed loading dataQueue") }
-                }
-            } else {
-                // Enqueuing
-            }
-        }
-    }
+    private var queuePlayer = AVQueuePlayer()
+    private var songQueue = [Song]()
     
     func playNow(_ song: Song) {
         guard let _ = song.url else { return }
+        guard let asset = song.asset else { return }
+        let playerItem = AVPlayerItem(asset: asset)
+        queuePlayer.insert(playerItem, after: queuePlayer.items().last)
+        if queuePlayer.items().count > 1 {
+            queuePlayer.advanceToNextItem()
+        }
         songQueue.insert(song, at: 0)
     }
     
     func playNext(_ song: Song) {
         guard let _ = song.url else { return }
+        guard let asset = song.asset else { return }
+        let playerItem = AVPlayerItem(asset: asset)
+        queuePlayer.insert(playerItem, after: queuePlayer.items().first)
         songQueue.insert(song, at: 1)
     }
     
     func playLater(_ song: Song) {
         guard let _ = song.url else { return }
+        guard let asset = song.asset else { return }
+        let playerItem = AVPlayerItem(asset: asset)
+        queuePlayer.insert(playerItem, after: nil)
         songQueue.append(song)
+    }
+    
+    func skipToNext() {
+        if songQueue.count < 2 { return }
+        queuePlayer.advanceToNextItem()
+        songQueue.removeFirst()
+        let s = songQueue.first!
+        songPlayerViewDelegate?.updateSong(s)
+    }
+    
+    func skipToPrevious() {
+        // TODO
     }
     
     override init() {
@@ -96,23 +69,18 @@ class AudioPlayer: NSObject {
     }
 
     func play() {
-        player?.play()
+        queuePlayer.play()
         songPlayerViewDelegate?.updatePlayState(.playing)
     }
     func pause() {
-        player?.pause()
+        queuePlayer.pause()
         songPlayerViewDelegate?.updatePlayState(.paused)
     }
     func stop() {
-        player?.stop()
+        queuePlayer.pause()
+        let startTime = CMTime(seconds: 0, preferredTimescale: CMTimeScale(1))
+        queuePlayer.seek(to: startTime)
         songPlayerViewDelegate?.updatePlayState(.stopped)
     }
 
-}
-
-extension AudioPlayer: AVAudioPlayerDelegate {
-    // TODO - This could be expanded to handle audio interruptions more gracefully
-    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
-        songQueue.remove(at: 0)
-    }
 }
