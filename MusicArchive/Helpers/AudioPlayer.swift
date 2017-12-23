@@ -16,7 +16,17 @@ class AudioPlayer: NSObject {
     static let shared = AudioPlayer()
     var songPlayerViewDelegate: SongPlayerViewDelegate?
     private var queuePlayer = AVQueuePlayer()
-    private var songQueue = [Song]()
+    private var previousSongQueue = [Song]()
+    private var songQueue = [Song]() {
+        didSet {
+            songPlayerViewDelegate?.updateUpcomingSongs()
+        }
+    }
+    var upcomingSongs: [Song] {
+        get {
+            return Array(songQueue.dropFirst())
+        }
+    }
     
     func playNow(_ song: Song) {
         guard let _ = song.url else { return }
@@ -32,6 +42,7 @@ class AudioPlayer: NSObject {
     func playNext(_ song: Song) {
         guard let _ = song.url else { return }
         guard let asset = song.asset else { return }
+        guard songQueue.count > 1 else { playNow(song); return }
         let playerItem = AVPlayerItem(asset: asset)
         queuePlayer.insert(playerItem, after: queuePlayer.items().first)
         songQueue.insert(song, at: 1)
@@ -54,7 +65,10 @@ class AudioPlayer: NSObject {
     }
     
     func skipToPrevious() {
-        // TODO
+        // TODO Check if song has been playing for awhile then just restart it
+        // Else play previous song that was playing
+        guard let s = previousSongQueue.first else { return }
+        playNow(s)
     }
     
     override init() {

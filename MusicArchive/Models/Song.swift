@@ -14,6 +14,8 @@ class Song {
     var name: String?
     var recordedDate: Date?
     var url: URL?
+    var description: String?
+    var album: Album?
     var asset: AVAsset? {
         get {
             guard let u = url else { return nil }
@@ -25,6 +27,7 @@ class Song {
     init(_ dictionary: [String:Any]) {
         id = dictionary["id"] as? Int
         name = dictionary["name"] as? String
+        description = dictionary["description"] as? String
 
         // Set recorded date
         if let recordedDateString = dictionary["recorded_date"] as? String {
@@ -44,6 +47,10 @@ class Song {
 
         if let urlString = dictionary["url"] as? String {
             url = URL(string: urlString)
+        }
+        
+        if let albumDictionary = dictionary["album"] as? [String:Any] {
+            album = Album(albumDictionary)
         }
     }
 

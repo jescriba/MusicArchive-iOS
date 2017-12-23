@@ -18,29 +18,47 @@ protocol ContainerDelegate {
 }
 
 class TabBarController: UITabBarController {
+    var isCollapsed = true
     fileprivate var hasSongControls: Bool = false
     fileprivate var playerView: SongPlayerView!
+    fileprivate var playerViewTopConstraint: NSLayoutConstraint!
+    fileprivate let playerViewOffset: CGFloat = -110
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        load()
     }
 
     override func awakeFromNib() {
         super.awakeFromNib()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
         load()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
     }
 
     func load() {
         delegate = self
         
-        // Add song player view
-        playerView = SongPlayerView(frame: view.frame)
+        // Add song player view if needed
+        guard playerView == nil else { return }
+        guard let frame = selectedViewController?.view.frame else { return }
+        playerView = SongPlayerView(frame: frame)
+        playerView.delegate = self
+        AudioPlayer.shared.songPlayerViewDelegate = self
         playerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(playerView)
-        playerView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -110).isActive = true
+        playerViewTopConstraint = playerView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: playerViewOffset)
+        playerViewTopConstraint.isActive = true
         playerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        playerView.heightAnchor.constraint(equalToConstant: frame.height - tabBar.frame.height).isActive = true
         view.bringSubview(toFront: tabBar)
     }
 
@@ -91,13 +109,75 @@ extension TabBarController: UITabBarControllerDelegate {
 }
 
 extension TabBarController: SongPlayerViewDelegate {
-
+    func updateUpcomingSongs() {
+        DispatchQueue.main.async {
+            self.playerView.songQueueTableView.reloadData()
+        }
+    }
+    
     func updateSong(_ s: Song) {
         playerView.song = s
     }
     
     func updatePlayState(_ s: PlayState) {
         playerView.playState = s
+    }
+    
+    func didTapToolBar() {
+        guard let _ = selectedViewController as? ContainerDelegate else { return }
+
+        // Toggle the panel state
+        // Open
+        if playerView.isCollapsed {
+            openPlayerView()
+        } else {
+            // Close
+            closePlayerView()
+        }
+    }
+    
+    func didPanToolBar(sender: UIPanGestureRecognizer) {
+        guard let _ = selectedViewController as? ContainerDelegate else { return }
+        
+        let yLocation = sender.location(in: selectedViewController!.view).y
+        let gestureState = sender.state
+        
+        // Animate the panel motion
+        playerViewTopConstraint.constant = playerViewOffset + yLocation - playerView.frame.height
+        playerView.updateConstraintsIfNeeded()
+        playerView.layoutIfNeeded()
+        view.layoutIfNeeded()
+        playerView.layoutIfNeeded()
+        
+        if gestureState == .ended {
+            if abs(playerViewTopConstraint.constant) > playerView.frame.height / 2 {
+                openPlayerView()
+            } else {
+                closePlayerView()
+            }
+        }
+    }
+    
+    func openPlayerView() {
+        playerViewTopConstraint.constant = -view.frame.height + 20 // hack toolbar offset?
+        UIView.animate(withDuration: 0.45, delay: 0, options: .curveEaseInOut, animations: {
+            self.playerView.updateConstraintsIfNeeded()
+            self.playerView.layoutIfNeeded()
+            self.view.layoutIfNeeded()
+            self.playerView.layoutIfNeeded()
+            self.playerView.isCollapsed = false
+        })
+    }
+    
+    func closePlayerView() {
+        playerViewTopConstraint.constant = playerViewOffset
+        UIView.animate(withDuration: 0.45, delay: 0, options: .curveEaseInOut, animations: {
+            self.playerView.updateConstraintsIfNeeded()
+            self.playerView.layoutIfNeeded()
+            self.view.layoutIfNeeded()
+            self.playerView.layoutIfNeeded()
+            self.playerView.isCollapsed = true
+        })
     }
     
 }

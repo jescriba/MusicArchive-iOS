@@ -39,7 +39,6 @@ class SongsViewController: UIViewController {
         // Setup SongsVC to handle popover presentation
         songsTableView.delegate = self
         songsTableView.songPlayerViewDelegate = parent as? TabBarController
-        AudioPlayer.shared.songPlayerViewDelegate = parent as? TabBarController
     }
     
     // Update UI for loading indicators

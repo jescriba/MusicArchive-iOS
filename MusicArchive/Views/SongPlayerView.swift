@@ -16,6 +16,9 @@ enum PlayState {
 protocol SongPlayerViewDelegate {
     func updateSong(_ s: Song)
     func updatePlayState(_ s: PlayState)
+    func didTapToolBar()
+    func didPanToolBar(sender: UIPanGestureRecognizer)
+    func updateUpcomingSongs()
 }
 
 class SongPlayerView: UIView {
@@ -32,6 +35,8 @@ class SongPlayerView: UIView {
     @IBOutlet weak var albumDescription: UILabel!
     @IBOutlet weak var releaseDate: UILabel!
     @IBOutlet weak var songQueueTableView: UITableView!
+    var isCollapsed = true
+    var delegate: SongPlayerViewDelegate?
     var playState: PlayState = PlayState.stopped {
         didSet {
             switch self.playState {
@@ -72,7 +77,11 @@ class SongPlayerView: UIView {
             songControlName.text = s.name
             songName.text = s.name
             recordedDate.text = s.recordedDate?.toString()
+            songDescription.text = s.description
             // Fill out album details TODO
+            albumName.text = s.album?.name
+            albumDescription.text = ""
+            releaseDate.text = ""
         }
     }
     
@@ -97,48 +106,19 @@ class SongPlayerView: UIView {
         contentView.frame = self.bounds
         contentView.layer.shadowRadius = 1
         contentView.layer.shadowOpacity = 0.02
-//
-//        // Set tableview properties
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.tableFooterView = UIView()
-//        tableView.showsVerticalScrollIndicator = false
-//        tableView.register(UINib(nibName: "SongsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "SongsTableViewCell")
-//
-//        // Set AudioPlayerDelegate for playing next track
-//        AudioPlayer.shared.delegate = self
-//
+
+        // Set tableview properties
+        songQueueTableView.delegate = self
+        songQueueTableView.dataSource = self
+        songQueueTableView.tableFooterView = UIView()
+        songQueueTableView.register(UINib(nibName: "SongsTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "SongsTableViewCell")
+        
         // Set initial footer state
         playState = .stopped
     }
     
     @IBAction func tappedPrevious(_ sender: Any) {
-        //        playIndex = (playIndex - 1) % songs.count
-        //        let newSong = songs[playIndex]
-        //        let wasPlaying = playState
-        //
-        //        // Stop playing while loading next track
-        //        AudioPlayer.shared.stop()
-        //        footerSongName.text = newSong.name
-        //
-        //        // Start loading
-        //        playState = .loading
-        //        footerPlayImageView.animationImages = [#imageLiteral(resourceName: "loading"), #imageLiteral(resourceName: "loading-1"), #imageLiteral(resourceName: "loading-2"), #imageLiteral(resourceName: "loading-3")]
-        //        footerPlayImageView.startAnimating()
-        //
-        //        // Update UI/animations after setting URL and continue playing if it was
-        //        AudioPlayer.shared.setUrl(newSong.url, success: {
-        //            DispatchQueue.main.async {
-        //                self.footerPlayImageView.stopAnimating()
-        //                if (wasPlaying == .playing) {
-        //                    self.playState = .playing
-        //                    AudioPlayer.shared.play()
-        //                } else {
-        //                    self.playState = .stopped
-        //                }
-        //                self.footerPlayImageView.stopAnimating()
-        //            }
-        //        })
+        AudioPlayer.shared.skipToPrevious()
     }
     
     @IBAction func tappedPlay(_ sender: Any) {
@@ -162,5 +142,27 @@ class SongPlayerView: UIView {
     @IBAction func tappedNext(_ sender: Any) {
         AudioPlayer.shared.skipToNext()
     }
+    @IBAction func didTapOnToolBar(_ sender: UITapGestureRecognizer) {
+        delegate?.didTapToolBar()
+    }
+    @IBAction func didPanOnToolBar(_ sender: UIPanGestureRecognizer) {
+        delegate?.didPanToolBar(sender: sender)
+    }
     
+}
+
+extension SongPlayerView: UITableViewDelegate {
+    
+}
+
+extension SongPlayerView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return AudioPlayer.shared.upcomingSongs.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SongsTableViewCell") as! SongsTableViewCell
+        cell.song = AudioPlayer.shared.upcomingSongs[indexPath.row]
+        return cell
+    }
 }
