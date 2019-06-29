@@ -39,6 +39,7 @@
 		42DC9B0F1F6C5F9500337476 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DC9B101F6C5F9500337476 /* Alamofire.framework */; };
 		42ECDEA01F9EF0FC00497C91 /* AlbumsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42ECDE9F1F9EF0FC00497C91 /* AlbumsTableViewCell.swift */; };
 		BCF3B0EF5947BFA5EE99AA56 /* Pods_MusicArchiveTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D3C38EB122B71DC1699FE6F /* Pods_MusicArchiveTests.framework */; };
+		F56A3343895BE65F988F2631 /* Pods_MusicArchive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DC9B0E1F6C5EDD00337476 /* Pods_MusicArchive.framework */; };
 		FC970D5874A792B01D5378DC /* Pods_MusicArchiveUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 119DEAB28500FE113E26C70E /* Pods_MusicArchiveUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +117,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				42DC9B0F1F6C5F9500337476 /* Alamofire.framework in Frameworks */,
+				F56A3343895BE65F988F2631 /* Pods_MusicArchive.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,7 +286,6 @@
 				42B847811F5523FB00F31700 /* Frameworks */,
 				42B847821F5523FB00F31700 /* Resources */,
 				DF071585F4EA7AD8F4EFD423 /* [CP] Embed Pods Frameworks */,
-				0A86A0CD6C412E82F1AC220E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -303,8 +304,6 @@
 				42B847941F5523FB00F31700 /* Sources */,
 				42B847951F5523FB00F31700 /* Frameworks */,
 				42B847961F5523FB00F31700 /* Resources */,
-				77CD220172B8328ADA1024AF /* [CP] Embed Pods Frameworks */,
-				97B05F1CA95E04981E715B1D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -324,8 +323,6 @@
 				42B8479F1F5523FB00F31700 /* Sources */,
 				42B847A01F5523FB00F31700 /* Frameworks */,
 				42B847A11F5523FB00F31700 /* Resources */,
-				82947A92D7C20F9E4396451D /* [CP] Embed Pods Frameworks */,
-				4D4EAC716C4B4FD82EA2CB3C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -420,94 +417,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A86A0CD6C412E82F1AC220E /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusicArchive/Pods-MusicArchive-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		15AF1E1E7DC659592C7DE69B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MusicArchiveUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		4D4EAC716C4B4FD82EA2CB3C /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusicArchiveUITests/Pods-MusicArchiveUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		77CD220172B8328ADA1024AF /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusicArchiveTests/Pods-MusicArchiveTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		82947A92D7C20F9E4396451D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusicArchiveUITests/Pods-MusicArchiveUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		97B05F1CA95E04981E715B1D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusicArchiveTests/Pods-MusicArchiveTests-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C5D4F5FD40382F000B8857F3 /* [CP] Check Pods Manifest.lock */ = {
@@ -516,13 +441,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MusicArchiveTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CC43E7F272CFF79A1E058E3A /* [CP] Check Pods Manifest.lock */ = {
@@ -531,13 +459,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-MusicArchive-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DF071585F4EA7AD8F4EFD423 /* [CP] Embed Pods Frameworks */ = {
@@ -546,13 +477,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-MusicArchive/Pods-MusicArchive-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusicArchive/Pods-MusicArchive-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MusicArchive/Pods-MusicArchive-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
