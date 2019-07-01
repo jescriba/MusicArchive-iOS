@@ -1,6 +1,0 @@
-framework module Pods_MusicArchiveUITests {
-  umbrella header "Pods-MusicArchiveUITests-umbrella.h"
-
-  export *
-  module * { export * }
-}
