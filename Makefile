@@ -8,6 +8,7 @@ bootstrap:
 	@yes | mint install nicklockwood/SwiftFormat
 	@gem install -v 2.0.2 bundler --minimal-deps --conservative
 	@bundle install
+	@bin/githooks/install.sh
 	@$(MAKE) build
 	
 carthage:
