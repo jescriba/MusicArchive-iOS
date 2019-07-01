@@ -59,7 +59,7 @@ class TabBarController: UITabBarController {
         playerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         playerView.heightAnchor.constraint(equalToConstant: frame.height - tabBar.frame.height).isActive = true
-        view.bringSubview(toFront: tabBar)
+      view.bringSubviewToFront(tabBar)
     }
 
     func goToSongs(artist: Artist? = nil, album: Album? = nil) {
