@@ -132,8 +132,10 @@ extension SongsViewController: SongPopoverDelegate {
         case .favorite:
             break
         case .share:
-            let vc = UIActivityViewController(activityItems: ["Check out this song", URL(string: "\(Endpoints.songsEndPoint)/\(song.id)")!], applicationActivities: nil)
+          if let id = song.id {
+            let vc = UIActivityViewController(activityItems: ["Check out this song", URL(string: "\(Endpoints.songsEndPoint)/\(id)")!], applicationActivities: nil)
             present(vc, animated: true, completion: nil)
+          }
             break
         }
     }
