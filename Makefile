@@ -7,7 +7,7 @@ bootstrap:
 	@yes | mint install nicklockwood/SwiftFormat
 	@bin/githooks/install.sh
 	@$(MAKE) build
-	
+
 carthage:
 	@carthage update --new-resolver --platform iOS --cache-builds --no-use-binaries
 
