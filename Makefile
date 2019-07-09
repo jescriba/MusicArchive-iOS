@@ -5,7 +5,7 @@ test: build
 	@set -o pipefail && xcodebuild -workspace MusicArchive.xcworkspace -scheme MusicArchiveTests -destination "platform=iOS Simulator,name=iPhone Xs" build test | xcpretty
 
 bootstrap:
-	@bin/brew_install.sh mint carthage
+	@bin/brew_install.sh mint carthage rbenv
 	@rbenv install -s
 	@yes | mint install yonaskolb/xcodegen
 	@yes | mint install nicklockwood/SwiftFormat
