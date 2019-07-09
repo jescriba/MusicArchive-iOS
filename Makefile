@@ -6,6 +6,7 @@ test: build
 
 bootstrap:
 	@bin/brew_install.sh mint carthage
+	@rbenv install -s
 	@yes | mint install yonaskolb/xcodegen
 	@yes | mint install nicklockwood/SwiftFormat
 	@gem install -v 2.0.2 bundler --minimal-deps --conservative
