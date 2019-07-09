@@ -1,6 +1,8 @@
 build: carthage
 	@xcodegen
-	@set -o pipefail && xcodebuild -workspace MusicArchive.xcworkspace -scheme MusicArchiveTests build test | xcpretty
+
+test: build
+	@set -o pipefail && xcodebuild -workspace MusicArchive.xcworkspace -scheme MusicArchiveTests -destination "platform=iOS Simulator,name=iPhone Xs" build test | xcpretty
 
 bootstrap:
 	@bin/brew_install.sh mint carthage
@@ -17,4 +19,5 @@ carthage:
 .PHONY: bootstrap \
 				build \
 				carthage \
-				strings
+				test
+
