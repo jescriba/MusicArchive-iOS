@@ -1,7 +1,10 @@
 language: swift
 osx_image: xcode10.2
+
+before_install:
+  - make bootstrap
+
 xcode_workspace: MusicArchive.xcworkspace 
 xcode_scheme: 
   - MusicArchiveTests
-before_install:
-  - make bootstrap
+xcode_destination: platform=iOS Simulator,name=iPhone Xs
