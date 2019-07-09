@@ -3,3 +3,5 @@ osx_image: xcode10.2
 xcode_workspace: MusicArchive.xcworkspace 
 xcode_scheme: 
   - MusicArchiveTests
+before_install:
+  - make bootstrap
