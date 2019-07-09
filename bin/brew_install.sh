@@ -1,6 +1,8 @@
 #!/bin/bash
 
-brew update
+if test -z "$HOMEBREW_NO_AUTO_UPDATE"; then
+  brew update
+fi
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 for dep in "$@"; do
