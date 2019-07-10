@@ -6,7 +6,7 @@ cache:
   - Carthage
 
 before_install:
-  - make bootstrap
+  - make ci_bootstrap
 
 xcode_workspace: MusicArchive.xcworkspace 
 xcode_scheme: 
