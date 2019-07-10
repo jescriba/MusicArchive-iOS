@@ -1,8 +1,12 @@
 language: swift
 osx_image: xcode10.2
 
+cache:
+  directories:
+  - Carthage
+
 before_install:
-  - make bootstrap
+  - make ci_bootstrap
 
 xcode_workspace: MusicArchive.xcworkspace 
 xcode_scheme: 
