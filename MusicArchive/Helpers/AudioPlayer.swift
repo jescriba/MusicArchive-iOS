@@ -1,13 +1,7 @@
-//
-//  AudioPlayer.swift
-//  MusicArchive
-//
-//  Created by Joshua on 9/6/17.
-//  Copyright © 2017 Joshua. All rights reserved.
-//
+// Copyright (c) 2019 Joshua Escribano-Fontanet
 
-import Foundation
 import AVFoundation
+import Foundation
 
 // Note: My original approach was to use AVAudioEngine so I could do
 // nicer things like track fading and fx - but I'd likely have to download the file
@@ -22,12 +16,11 @@ class AudioPlayer: NSObject {
             songPlayerViewDelegate?.updateUpcomingSongs()
         }
     }
+
     var upcomingSongs: [Song] {
-        get {
-            return Array(songQueue.dropFirst())
-        }
+        return Array(songQueue.dropFirst())
     }
-    
+
     func playNow(_ song: Song) {
         guard let _ = song.url else { return }
         guard let asset = song.asset else { return }
@@ -38,16 +31,18 @@ class AudioPlayer: NSObject {
         }
         songQueue.insert(song, at: 0)
     }
-    
+
     func playNext(_ song: Song) {
         guard let _ = song.url else { return }
         guard let asset = song.asset else { return }
-        guard songQueue.count > 1 else { playNow(song); return }
+        guard songQueue.count > 1 else { playNow(song)
+            return
+        }
         let playerItem = AVPlayerItem(asset: asset)
         queuePlayer.insert(playerItem, after: queuePlayer.items().first)
         songQueue.insert(song, at: 1)
     }
-    
+
     func playLater(_ song: Song) {
         guard let _ = song.url else { return }
         guard let asset = song.asset else { return }
@@ -55,7 +50,7 @@ class AudioPlayer: NSObject {
         queuePlayer.insert(playerItem, after: nil)
         songQueue.append(song)
     }
-    
+
     func skipToNext() {
         if songQueue.count < 2 { return }
         queuePlayer.advanceToNextItem()
@@ -63,38 +58,39 @@ class AudioPlayer: NSObject {
         let s = songQueue.first!
         songPlayerViewDelegate?.updateSong(s)
     }
-    
+
     func skipToPrevious() {
-        // TODO Check if song has been playing for awhile then just restart it
+        // TODO: Check if song has been playing for awhile then just restart it
         // Else play previous song that was playing
         guard let s = previousSongQueue.first else { return }
         playNow(s)
     }
-    
+
     override init() {
         super.init()
-        
+
         // Enable audio when side clicker is set to mute
         let audioSession = AVAudioSession.sharedInstance()
         do {
             try audioSession.setActive(true)
             try audioSession.setCategory(AVAudioSession.Category.playback)
-        } catch  { print("audio session crash") }
+        } catch { print("audio session crash") }
     }
 
     func play() {
         queuePlayer.play()
         songPlayerViewDelegate?.updatePlayState(.playing)
     }
+
     func pause() {
         queuePlayer.pause()
         songPlayerViewDelegate?.updatePlayState(.paused)
     }
+
     func stop() {
         queuePlayer.pause()
         let startTime = CMTime(seconds: 0, preferredTimescale: CMTimeScale(1))
         queuePlayer.seek(to: startTime)
         songPlayerViewDelegate?.updatePlayState(.stopped)
     }
-
 }

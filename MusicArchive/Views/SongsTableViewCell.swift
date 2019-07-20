@@ -1,20 +1,14 @@
-//
-//  SongsTableViewCell.swift
-//  MusicArchive
-//
-//  Created by Joshua on 9/3/17.
-//  Copyright © 2017 Joshua. All rights reserved.
-//
+// Copyright (c) 2019 Joshua Escribano-Fontanet
 
 import AVFoundation
 import Foundation
 import UIKit
 
 class SongsTableViewCell: UITableViewCell {
-    @IBOutlet weak var songNameLabel: UILabel!
-    @IBOutlet weak var artistsNameLabel: UILabel!
-    @IBOutlet weak var recordedDateLabel: UILabel!
-    @IBOutlet weak var playIconImageView: UIImageView!
+    @IBOutlet var songNameLabel: UILabel!
+    @IBOutlet var artistsNameLabel: UILabel!
+    @IBOutlet var recordedDateLabel: UILabel!
+    @IBOutlet var playIconImageView: UIImageView!
 
     var song: Song? {
         didSet {

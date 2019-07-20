@@ -1,13 +1,6 @@
-//
-//  Extensions.swift
-//  MusicArchive
-//
-//  Created by Joshua on 9/4/17.
-//  Copyright © 2017 Joshua. All rights reserved.
-//
+// Copyright (c) 2019 Joshua Escribano-Fontanet
 
 import Foundation
-
 
 extension Date {
     func toString() -> String {
@@ -15,7 +8,7 @@ extension Date {
         dateFormatter.dateFormat = "MMMM d, yyyy"
         return dateFormatter.string(from: self)
     }
-    
+
     func toSearchString() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -24,40 +17,38 @@ extension Date {
 }
 
 extension String {
-    
     func matches(for regex: String) -> [String] {
         do {
             let regex = try NSRegularExpression(pattern: regex)
             let results = regex.matches(in: self,
-                                        range: NSRange(self.startIndex..., in: self))
+                                        range: NSRange(startIndex..., in: self))
             return results.map {
                 String(self[Range($0.range, in: self)!])
             }
-        } catch let error {
+        } catch {
             print("invalid regex: \(error.localizedDescription)")
             return []
         }
     }
-    
+
     func titleFromUrl() -> String {
         let matches = self.matches(for: "\\.([^.]+)\\.")
         if matches.isEmpty { return "Archive" }
         guard let match = matches.first else { return "Archive" }
         return match
     }
-    
+
     func asValidUrl() -> String? {
         var validUrl: String? = self
-        if !self.hasPrefix("http://www.") {
+        if !hasPrefix("http://www.") {
             validUrl = "http://www." + self
         }
-        
+
         let title = validUrl?.titleFromUrl()
-        guard title != nil && !title!.isEmpty else { return nil }
-        
+        guard title != nil, !title!.isEmpty else { return nil }
+
         return validUrl
     }
-    
 }
 
 extension Dictionary where Key == String {

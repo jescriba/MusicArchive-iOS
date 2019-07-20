@@ -1,13 +1,7 @@
-//
-//  Song.swift
-//  MusicArchive
-//
-//  Created by Joshua on 9/3/17.
-//  Copyright © 2017 Joshua. All rights reserved.
-//
+// Copyright (c) 2019 Joshua Escribano-Fontanet
 
-import Foundation
 import AVFoundation
+import Foundation
 
 class Song {
     var id: Int?
@@ -17,14 +11,13 @@ class Song {
     var description: String?
     var album: Album?
     var asset: AVAsset? {
-        get {
-            guard let u = url else { return nil }
-            return AVAsset(url: u)
-        }
+        guard let u = url else { return nil }
+        return AVAsset(url: u)
     }
+
     var artists: [Artist]?
 
-    init(_ dictionary: [String:Any]) {
+    init(_ dictionary: [String: Any]) {
         id = dictionary["id"] as? Int
         name = dictionary["name"] as? String
         description = dictionary["description"] as? String
@@ -37,7 +30,7 @@ class Song {
         }
 
         // Set artists
-        if let artistsDictArray = dictionary["artists"] as? [[String:Any]] {
+        if let artistsDictArray = dictionary["artists"] as? [[String: Any]] {
             var tempArtists = [Artist]()
             for artistsDict in artistsDictArray {
                 tempArtists.append(Artist(artistsDict))
@@ -48,8 +41,8 @@ class Song {
         if let urlString = dictionary["url"] as? String {
             url = URL(string: urlString)
         }
-        
-        if let albumDictionary = dictionary["album"] as? [String:Any] {
+
+        if let albumDictionary = dictionary["album"] as? [String: Any] {
             album = Album(albumDictionary)
         }
     }

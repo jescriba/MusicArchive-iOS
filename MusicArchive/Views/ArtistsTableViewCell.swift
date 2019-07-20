@@ -1,16 +1,10 @@
-//
-//  ArtistsTableViewCell.swift
-//  MusicArchive
-//
-//  Created by Joshua on 9/3/17.
-//  Copyright © 2017 Joshua. All rights reserved.
-//
+// Copyright (c) 2019 Joshua Escribano-Fontanet
 
 import Foundation
 import UIKit
 
 class ArtistsTableViewCell: UITableViewCell {
-    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet var nameLabel: UILabel!
 
     var artist: Artist? {
         didSet {
@@ -19,5 +13,4 @@ class ArtistsTableViewCell: UITableViewCell {
             nameLabel.text = "\(name)"
         }
     }
-    
 }
