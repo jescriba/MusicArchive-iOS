@@ -6,8 +6,8 @@ options:
   createIntermediateGroups: true
   developmentLanguage: Base
   groupSortPosition: top
-  indentWidth: 2
-  tabWidth: 2
+  indentWidth: 4
+  tabWidth: 4
   usesTabs: false
 settings:
   CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
