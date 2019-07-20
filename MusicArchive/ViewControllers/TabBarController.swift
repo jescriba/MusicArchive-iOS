@@ -1,15 +1,9 @@
-//
-//  TabBarViewController.swift
-//  MusicArchive
-//
-//  Created by Joshua on 9/7/17.
-//  Copyright © 2017 Joshua. All rights reserved.
-//
+// Copyright (c) 2019 Joshua Escribano-Fontanet
 
 import Foundation
 import UIKit
 
-enum Page:Int {
+enum Page: Int {
     case home, artists, albums, songs, search
 }
 
@@ -31,21 +25,20 @@ class TabBarController: UITabBarController {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    
+
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
+
         load()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
     }
 
     func load() {
         delegate = self
-        
+
         // Add song player view if needed
         guard playerView == nil else { return }
         guard let frame = selectedViewController?.view.frame else { return }
@@ -59,45 +52,43 @@ class TabBarController: UITabBarController {
         playerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         playerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         playerView.heightAnchor.constraint(equalToConstant: frame.height - tabBar.frame.height).isActive = true
-      view.bringSubviewToFront(tabBar)
+        view.bringSubviewToFront(tabBar)
     }
 
     func goToSongs(artist: Artist? = nil, album: Album? = nil) {
         let songsVC = viewControllers?[Page.songs.rawValue] as? SongsViewController
-        
+
         if let artist = artist {
             songsVC?.isPaging = false
             songsVC?.detailTitle = artist.name
             songsVC?.fetchSongs(artist: artist)
         }
-        
+
         if let album = album {
             songsVC?.isPaging = false
             songsVC?.detailTitle = album.name
             songsVC?.songs = album.songs ?? [Song]()
         }
-        
+
         // Present VC
         selectedIndex = Page.songs.rawValue
     }
-    
-    func goToSongs(search: [String:Any]) {
-        // TODO Implement search
+
+    func goToSongs(search: [String: Any]) {
+        // TODO: Implement search
         let songsVC = viewControllers?[Page.songs.rawValue] as? SongsViewController
         songsVC?.loadViewIfNeeded() // Preventing nil when using IBOutlet before load
         songsVC?.songs = []
         songsVC?.detailTitle = "search"
         songsVC?.searchSongs(search)
-        
+
         // Present VC
         selectedIndex = Page.songs.rawValue
     }
-
 }
 
 extension TabBarController: UITabBarControllerDelegate {
-
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+    func tabBarController(_: UITabBarController, didSelect viewController: UIViewController) {
         // Reset SongsVC detail title if not transitioning with goToSongs()
         if let songsVC = viewController as? SongsViewController {
             songsVC.detailTitleLabel.text = ""
@@ -105,7 +96,6 @@ extension TabBarController: UITabBarControllerDelegate {
             songsVC.fetchSongs()
         }
     }
-
 }
 
 extension TabBarController: SongPlayerViewDelegate {
@@ -114,15 +104,15 @@ extension TabBarController: SongPlayerViewDelegate {
             self.playerView.songQueueTableView.reloadData()
         }
     }
-    
+
     func updateSong(_ s: Song) {
         playerView.song = s
     }
-    
+
     func updatePlayState(_ s: PlayState) {
         playerView.playState = s
     }
-    
+
     func didTapToolBar() {
         guard let _ = selectedViewController as? ContainerDelegate else { return }
 
@@ -135,20 +125,20 @@ extension TabBarController: SongPlayerViewDelegate {
             closePlayerView()
         }
     }
-    
+
     func didPanToolBar(sender: UIPanGestureRecognizer) {
         guard let _ = selectedViewController as? ContainerDelegate else { return }
-        
+
         let yLocation = sender.location(in: selectedViewController!.view).y
         let gestureState = sender.state
-        
+
         // Animate the panel motion
         playerViewTopConstraint.constant = playerViewOffset + yLocation - playerView.frame.height
         playerView.updateConstraintsIfNeeded()
         playerView.layoutIfNeeded()
         view.layoutIfNeeded()
         playerView.layoutIfNeeded()
-        
+
         if gestureState == .ended {
             if abs(playerViewTopConstraint.constant) > playerView.frame.height / 2 {
                 openPlayerView()
@@ -157,7 +147,7 @@ extension TabBarController: SongPlayerViewDelegate {
             }
         }
     }
-    
+
     func openPlayerView() {
         playerViewTopConstraint.constant = -view.frame.height + 20 // hack toolbar offset?
         UIView.animate(withDuration: 0.45, delay: 0, options: .curveEaseInOut, animations: {
@@ -168,7 +158,7 @@ extension TabBarController: SongPlayerViewDelegate {
             self.playerView.isCollapsed = false
         })
     }
-    
+
     func closePlayerView() {
         playerViewTopConstraint.constant = playerViewOffset
         UIView.animate(withDuration: 0.45, delay: 0, options: .curveEaseInOut, animations: {
@@ -179,5 +169,4 @@ extension TabBarController: SongPlayerViewDelegate {
             self.playerView.isCollapsed = true
         })
     }
-    
 }

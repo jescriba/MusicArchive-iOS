@@ -1,10 +1,4 @@
-//
-//  Artist.swift
-//  MusicArchive
-//
-//  Created by Joshua on 9/3/17.
-//  Copyright © 2017 Joshua. All rights reserved.
-//
+// Copyright (c) 2019 Joshua Escribano-Fontanet
 
 import Foundation
 
@@ -12,9 +6,8 @@ class Artist {
     var id: Int?
     var name: String?
 
-    init(_ dictionary: [String:Any]) {
-        self.id = dictionary["id"] as? Int
-        self.name = dictionary["name"] as? String
+    init(_ dictionary: [String: Any]) {
+        id = dictionary["id"] as? Int
+        name = dictionary["name"] as? String
     }
-    
 }

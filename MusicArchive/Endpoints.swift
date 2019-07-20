@@ -1,10 +1,4 @@
-//
-//  Constants.swift
-//  MusicArchive
-//
-//  Created by Joshua on 9/3/17.
-//  Copyright © 2017 Joshua. All rights reserved.
-//
+// Copyright (c) 2019 Joshua Escribano-Fontanet
 
 import Foundation
 
@@ -16,6 +10,7 @@ class Endpoints {
             UserDefaults.standard.set(newValue, forKey: "baseEndPoint")
         }
     }
+
     static var artistsEndPoint = "\(Endpoints.baseEndPoint)/artists"
     static var songsEndPoint = "\(Endpoints.baseEndPoint)/songs"
     static var albumsEndPoint = "\(Endpoints.baseEndPoint)/albums"

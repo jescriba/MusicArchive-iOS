@@ -1,17 +1,11 @@
-//
-//  SongsViewController.swift
-//  MusicArchive
-//
-//  Created by Joshua on 8/28/17.
-//  Copyright © 2017 Joshua. All rights reserved.
-//
+// Copyright (c) 2019 Joshua Escribano-Fontanet
 
 import Foundation
 import UIKit
 
 class SongsViewController: UIViewController {
-    @IBOutlet weak var songsTableView: SongsTableView!
-    @IBOutlet weak var detailTitleLabel: UILabel!
+    @IBOutlet var songsTableView: SongsTableView!
+    @IBOutlet var detailTitleLabel: UILabel!
     var loadingImageView = UIImageView(image: #imageLiteral(resourceName: "loading"))
     var isPaging = true {
         didSet {
@@ -20,27 +14,29 @@ class SongsViewController: UIViewController {
             songsTableView.isPaging = isPaging
         }
     }
+
     var detailTitle: String? {
         didSet {
             loadViewIfNeeded()
             detailTitleLabel.text = detailTitle
         }
     }
+
     var songs = [Song]() {
         didSet {
             songsTableView.songs = songs
             songsTableView.reloadData()
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Setup SongsVC to handle popover presentation
         songsTableView.delegate = self
         songsTableView.songPlayerViewDelegate = parent as? TabBarController
     }
-    
+
     // Update UI for loading indicators
     func startLoadingAnimation() {
         // Empty existing table
@@ -53,14 +49,14 @@ class SongsViewController: UIViewController {
         loadingImageView.startAnimating()
         view.addSubview(loadingImageView)
     }
-    
+
     func stopLoadingAnimation() {
         loadingImageView.stopAnimating()
         loadingImageView.removeFromSuperview()
     }
-    
+
     // Network calls to load songs
-    func searchSongs(_ params: [String:Any]) {
+    func searchSongs(_ params: [String: Any]) {
         startLoadingAnimation()
         MusicAPIClient.searchSongs(params, success: { songs in
             self.songs = songs
@@ -71,9 +67,9 @@ class SongsViewController: UIViewController {
         })
     }
 
-    func fetchSongs(artist: Artist? = nil, success successOptional: (([Song]) -> ())? = nil, failure: ((Error?) -> ())? = nil) {
+    func fetchSongs(artist: Artist? = nil, success successOptional: (([Song]) -> Void)? = nil, failure: ((Error?) -> Void)? = nil) {
         // Get non-optional success block
-        var success: (([Song]) -> ())!
+        var success: (([Song]) -> Void)!
         if let s = successOptional {
             success = s
         } else {
@@ -88,7 +84,7 @@ class SongsViewController: UIViewController {
         // Fetch songs, based on artist ID or not, with API Client
         startLoadingAnimation()
         if let artistId = artist?.id {
-            MusicAPIClient.fetchSongsByArtistId(artistId, params: ["page":songsTableView.page], success: success, failure: failure)
+            MusicAPIClient.fetchSongsByArtistId(artistId, params: ["page": songsTableView.page], success: success, failure: failure)
         } else {
             MusicAPIClient.fetchSongs(params: ["page": songsTableView.page], success: success, failure: failure)
         }
@@ -99,14 +95,14 @@ extension SongsViewController: SongPopoverDelegate {
     var songPlayerViewDelegate: SongPlayerViewDelegate? {
         return parent as? TabBarController
     }
-    
+
     func showPopover(song: Song, cell: SongsTableViewCell) {
         // Create and edit Popover VC
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SongActionPopover") as! SongPopoverViewController
         vc.modalPresentationStyle = .popover
         vc.preferredContentSize = CGSize(width: 150, height: 150)
         vc.song = song
-        
+
         // Set delegate to handle popover actions
         vc.delegate = self
 
@@ -115,43 +111,37 @@ extension SongsViewController: SongPopoverDelegate {
         presentationController?.delegate = self
         presentationController?.sourceView = cell
         presentationController?.sourceRect = CGRect(x: 0, y: 0, width: cell.frame.size.width, height: cell.frame.size.height)
-        
+
         present(vc, animated: true, completion: nil)
     }
-    
+
     func didPerformAction(songPopoverAction: SongPopoverAction, song: Song) {
         dismiss(animated: true, completion: nil)
-        
+
         switch songPopoverAction {
         case .playNext:
             AudioPlayer.shared.playNext(song)
-            break
         case .playLater:
             AudioPlayer.shared.playLater(song)
-            break
         case .favorite:
             break
         case .share:
-          if let id = song.id {
-            let vc = UIActivityViewController(activityItems: ["Check out this song", URL(string: "\(Endpoints.songsEndPoint)/\(id)")!], applicationActivities: nil)
-            present(vc, animated: true, completion: nil)
-          }
-            break
+            if let id = song.id {
+                let vc = UIActivityViewController(activityItems: ["Check out this song", URL(string: "\(Endpoints.songsEndPoint)/\(id)")!], applicationActivities: nil)
+                present(vc, animated: true, completion: nil)
+            }
         }
     }
 }
 
 extension SongsViewController: UIPopoverPresentationControllerDelegate {
-    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+    func adaptivePresentationStyle(for _: UIPresentationController, traitCollection _: UITraitCollection) -> UIModalPresentationStyle {
         return .none
     }
-    
 }
 
 extension SongsViewController: ContainerDelegate {
     var containerView: UIView {
-        get {
-            return view
-        }
+        return view
     }
 }
