@@ -4,11 +4,11 @@ import Foundation
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet var baseView: HomeView!
+  @IBOutlet var baseView: HomeView!
 }
 
 extension HomeViewController: ContainerDelegate {
-    var containerView: UIView {
-        return baseView
-    }
+  var containerView: UIView {
+    return baseView
+  }
 }

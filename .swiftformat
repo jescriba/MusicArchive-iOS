@@ -2,7 +2,7 @@
 --commas inline
 --exclude Carthage
 --header "Copyright (c) {year} Joshua Escribano-Fontanet"
---indent 4
+--indent 2
 --patternlet hoist
 --ranges nospace
 --semicolons never
